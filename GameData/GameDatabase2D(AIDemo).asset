@@ -68,8 +68,8 @@ MonoBehaviour:
   monsterCharacters:
   - {fileID: 11400000, guid: 63ab244077edf394f805979d0e1c1492, type: 2}
   playerCharacterEntities:
-  - {fileID: 114365581085098908, guid: 80b049ea6ccbdd644b451085b92ecf70, type: 2}
+  - {fileID: 114249800215842032, guid: 56f22f496232a2640ba37e25b1ccacd8, type: 2}
   monsterCharacterEntities:
-  - {fileID: 114732422307681052, guid: 06a947ec7dcc656479370f317431a57f, type: 2}
+  - {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 2}
   mapInfos:
   - {fileID: 11400000, guid: 55030227750854647bdff113f1960462, type: 2}
