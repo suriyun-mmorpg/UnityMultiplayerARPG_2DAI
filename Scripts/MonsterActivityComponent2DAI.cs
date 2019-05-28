@@ -21,10 +21,14 @@ namespace MultiplayerARPG
 
         protected new void Update()
         {
-            UpdateActivity(Time.unscaledTime);
-
             if (!CacheMonsterCharacterEntity.IsServer)
+            {
+                (CacheAIPath as MonoBehaviour).enabled = false;
                 return;
+            }
+            (CacheAIPath as MonoBehaviour).enabled = true;
+
+            UpdateActivity(Time.unscaledTime);
 
             if (CacheAIPath.velocity.magnitude > 0)
                 CacheMonsterCharacterEntity.MovementState = MovementState.Forward | MovementState.IsGrounded;

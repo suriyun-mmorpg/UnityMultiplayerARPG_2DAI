@@ -21,6 +21,13 @@ namespace MultiplayerARPG
 
         protected override void EntityUpdate()
         {
+            if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+                (CacheAIPath as MonoBehaviour).enabled = false;
+            else if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+                (CacheAIPath as MonoBehaviour).enabled = false;
+            else
+                (CacheAIPath as MonoBehaviour).enabled = true;
+
             // Force set AILerp settings
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
