@@ -6,16 +6,15 @@ using UnityEngine.Profiling;
 
 namespace MultiplayerARPG
 {
-    [RequireComponent(typeof(AIPath))]
     public class PlayerCharacterEntity2DAI : PlayerCharacterEntity2D
     {
-        private AIPath cacheAIPath;
-        public AIPath CacheAIPath
+        private IAstarAI cacheAIPath;
+        public IAstarAI CacheAIPath
         {
             get
             {
                 if (cacheAIPath == null)
-                    cacheAIPath = GetComponent<AIPath>();
+                    cacheAIPath = GetComponent<IAstarAI>();
                 return cacheAIPath;
             }
         }
@@ -23,12 +22,9 @@ namespace MultiplayerARPG
         protected override void EntityUpdate()
         {
             // Force set AILerp settings
-            CacheAIPath.isStopped = IsDead();
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
-            CacheAIPath.enableRotation = false;
             CacheAIPath.maxSpeed = CacheMoveSpeed;
-            CacheAIPath.orientation = OrientationMode.YAxisForward;
             base.EntityUpdate();
         }
 
@@ -45,22 +41,30 @@ namespace MultiplayerARPG
             if (currentDestination.HasValue && !IsDead())
             {
                 // Set destination to AI Path
+                CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
-                UpdateCurrentDirection(CacheAIPath.steeringTarget);
+                if (CacheAIPath.velocity.magnitude > 0)
+                    UpdateCurrentDirection(CacheAIPath.velocity.normalized);
             }
 
-            if (CacheAIPath.reachedDestination)
-            {
-                // No movement so state is none
-                SetMovementState(MovementState.None);
-            }
-            else
+            if (CacheAIPath.velocity.magnitude > 0)
             {
                 // For 2d, just define that it is moving so can use any state
                 SetMovementState(MovementState.Forward);
             }
+            else
+            {
+                // No movement so state is none
+                SetMovementState(MovementState.None);
+            }
 
             Profiler.EndSample();
+        }
+
+        public override void StopMove()
+        {
+            CacheAIPath.isStopped = true;
+            base.StopMove();
         }
     }
 }

@@ -6,18 +6,30 @@ using UnityEngine.Profiling;
 
 namespace MultiplayerARPG
 {
-    [RequireComponent(typeof(AIPath))]
     public class MonsterActivityComponent2DAI : MonsterActivityComponent2D
     {
-        private AIPath cacheAIPath;
-        public AIPath CacheAIPath
+        private IAstarAI cacheAIPath;
+        public IAstarAI CacheAIPath
         {
             get
             {
                 if (cacheAIPath == null)
-                    cacheAIPath = GetComponent<AIPath>();
+                    cacheAIPath = GetComponent<IAstarAI>();
                 return cacheAIPath;
             }
+        }
+
+        protected new void Update()
+        {
+            UpdateActivity(Time.unscaledTime);
+
+            if (!CacheMonsterCharacterEntity.IsServer)
+                return;
+
+            if (CacheAIPath.velocity.magnitude > 0)
+                CacheMonsterCharacterEntity.MovementState = MovementState.Forward | MovementState.IsGrounded;
+            else
+                CacheMonsterCharacterEntity.MovementState = MovementState.IsGrounded;
         }
 
         protected new void FixedUpdate()
@@ -35,8 +47,10 @@ namespace MultiplayerARPG
             if (currentDestination.HasValue)
             {
                 // Set destination to AI Path
+                CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
-                CacheMonsterCharacterEntity.UpdateCurrentDirection(CacheAIPath.steeringTarget);
+                if (CacheAIPath.velocity.magnitude > 0)
+                    CacheMonsterCharacterEntity.UpdateCurrentDirection(CacheAIPath.velocity.normalized);
             }
         }
     }
