@@ -14,6 +14,11 @@ namespace MultiplayerARPG
             {
                 if (cacheAIPath == null)
                     cacheAIPath = GetComponent<IAstarAI>();
+                if (cacheAIPath == null)
+                {
+                    cacheAIPath = gameObject.AddComponent<AILerp>();
+                    (cacheAIPath as AILerp).enableRotation = false;
+                }
                 return cacheAIPath;
             }
         }
@@ -52,16 +57,7 @@ namespace MultiplayerARPG
                     UpdateCurrentDirection(CacheAIPath.velocity.normalized);
             }
 
-            if (CacheAIPath.velocity.magnitude > 0)
-            {
-                // For 2d, just define that it is moving so can use any state
-                SetMovementState(MovementState.Forward);
-            }
-            else
-            {
-                // No movement so state is none
-                SetMovementState(MovementState.None);
-            }
+            SetMovementState(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
         }
 
         public override void StopMove()
