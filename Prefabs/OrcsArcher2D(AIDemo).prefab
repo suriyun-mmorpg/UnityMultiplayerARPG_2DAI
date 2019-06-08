@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 114715038711056228}
   - component: {fileID: 114877638974942912}
   - component: {fileID: 114308812000665012}
+  - component: {fileID: 114383154828356954}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
   m_TagString: Untagged
@@ -349,6 +350,19 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &114383154828356954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777251013356746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f5475a255250e42849cfb737e63191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoppingDistance: 0.1
+  movementSecure: 0
 --- !u!114 &114383526974588364
 MonoBehaviour:
   m_ObjectHideFlags: 1

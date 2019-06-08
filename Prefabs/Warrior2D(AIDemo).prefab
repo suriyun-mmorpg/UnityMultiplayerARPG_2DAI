@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 114249800215842032}
   - component: {fileID: 114757329484041034}
   - component: {fileID: 114244173189548708}
+  - component: {fileID: 114373457388471766}
   m_Layer: 0
   m_Name: Warrior2D(AIDemo)
   m_TagString: Untagged
@@ -653,6 +654,19 @@ MonoBehaviour:
   syncRotationX: 1
   syncRotationY: 1
   syncRotationZ: 1
+--- !u!114 &114373457388471766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329702655160078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f5475a255250e42849cfb737e63191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoppingDistance: 0.1
+  movementSecure: 0
 --- !u!114 &114395829741571220
 MonoBehaviour:
   m_ObjectHideFlags: 1
