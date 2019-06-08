@@ -23,21 +23,37 @@ namespace MultiplayerARPG
             }
         }
 
+        public override void EntityOnSetup(BaseCharacterEntity entity)
+        {
+            base.EntityOnSetup(entity);
+            CacheNetTransform.onTeleport = (position, rotation) =>
+            {
+                CacheAIPath.Teleport(position);
+            };
+        }
+
         protected override void Update()
         {
             base.Update();
 
             if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+            {
                 (CacheAIPath as MonoBehaviour).enabled = false;
-            else if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+                return;
+            }
+
+            if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+            {
                 (CacheAIPath as MonoBehaviour).enabled = false;
-            else
-                (CacheAIPath as MonoBehaviour).enabled = true;
+                return;
+            }
+
+            (CacheAIPath as MonoBehaviour).enabled = true;
 
             // Force set AILerp settings
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
-            CacheAIPath.maxSpeed = gameplayRule.GetMoveSpeed(CacheCharacterEntity); ;
+            CacheAIPath.maxSpeed = gameplayRule.GetMoveSpeed(CacheCharacterEntity);
         }
 
         protected override void FixedUpdate()
@@ -51,18 +67,21 @@ namespace MultiplayerARPG
             if (currentDestination.HasValue && !IsDead())
             {
                 // Set destination to AI Path
-                CacheAIPath.isStopped = false;
+                if (CacheAIPath.isStopped)
+                    CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
-                if (CacheAIPath.velocity.magnitude > 0)
-                    UpdateCurrentDirection(CacheAIPath.velocity.normalized);
             }
+
+            if (CacheAIPath.velocity.magnitude > 0)
+                UpdateCurrentDirection(CacheAIPath.velocity.normalized);
 
             SetMovementState(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
         }
 
         public override void StopMove()
         {
-            CacheAIPath.isStopped = true;
+            if (!CacheAIPath.isStopped)
+                CacheAIPath.isStopped = true;
             base.StopMove();
         }
     }
