@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 114398214965351400}
   - component: {fileID: 114715038711056228}
   - component: {fileID: 114877638974942912}
-  - component: {fileID: 114923455730037798}
+  - component: {fileID: 114308812000665012}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
   m_TagString: Untagged
@@ -314,6 +314,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44d5853016663a4b9be1f277173d689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114308812000665012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777251013356746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 0.25
+  height: 0.01
+  repathRate: 0
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 1
+  enableRotation: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: 1024
+  rotationSpeed: 360
+  slowdownDistance: 0
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
 --- !u!114 &114383526974588364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -502,8 +537,7 @@ MonoBehaviour:
   aggressiveFindTargetDelay: 1
   setTargetDestinationDelay: 1
   followTargetDuration: 5
-  stoppingDistance: 0.1
-  speed: 1
+  turnToEnemySpeed: 800
 --- !u!114 &114742447895139976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -547,7 +581,7 @@ MonoBehaviour:
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0
-    exactStartPoint: 1
+    exactStartPoint: 0
     exactEndPoint: 0
     useRaycasting: 0
     mask:
@@ -713,15 +747,6 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  movementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: 0
   attributes:
     behaviour: {fileID: 0}
     elementId: 0
@@ -770,50 +795,6 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  currentDirectionType:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: 0
---- !u!114 &114923455730037798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777251013356746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.25
-  height: 0.01
-  repathRate: 0
-  canSearch: 1
-  canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 1
-  enableRotation: 0
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 1
 --- !u!114 &114962839084613726
 MonoBehaviour:
   m_ObjectHideFlags: 1

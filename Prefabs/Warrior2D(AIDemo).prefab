@@ -59,9 +59,9 @@ GameObject:
   - component: {fileID: 114452757523037018}
   - component: {fileID: 61962034507740752}
   - component: {fileID: 114838416205247706}
-  - component: {fileID: 114757329484041034}
   - component: {fileID: 114249800215842032}
-  - component: {fileID: 114084472949402674}
+  - component: {fileID: 114757329484041034}
+  - component: {fileID: 114244173189548708}
   m_Layer: 0
   m_Name: Warrior2D(AIDemo)
   m_TagString: Untagged
@@ -302,7 +302,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114084472949402674
+--- !u!114 &114244173189548708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,15 +328,15 @@ MonoBehaviour:
   orientation: 1
   enableRotation: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
+  maxAcceleration: 1024
   rotationSpeed: 360
-  slowdownDistance: 0.6
+  slowdownDistance: 0
   pickNextWaypointDist: 2
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
-  constrainInsideGraph: 1
+  constrainInsideGraph: 0
 --- !u!114 &114249800215842032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,15 +492,6 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  movementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: 0
   attributes:
     behaviour: {fileID: 0}
     elementId: 0
@@ -636,26 +627,6 @@ MonoBehaviour:
     behaviour: {fileID: 0}
     elementId: 0
     forOwnerOnly: 1
-  stoppingDistance: 0.1
-  movementSecure: 0
-  currentDirection:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 0
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: {x: 0, y: 0}
-  currentDirectionType:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: 0
 --- !u!114 &114329255275231682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -758,7 +729,7 @@ MonoBehaviour:
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0
-    exactStartPoint: 1
+    exactStartPoint: 0
     exactEndPoint: 0
     useRaycasting: 0
     mask:
