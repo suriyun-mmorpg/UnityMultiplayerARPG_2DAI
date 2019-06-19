@@ -53,7 +53,7 @@ namespace MultiplayerARPG
             // Force set AILerp settings
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
-            CacheAIPath.maxSpeed = gameplayRule.GetMoveSpeed(CacheCharacterEntity);
+            CacheAIPath.maxSpeed = gameplayRule.GetMoveSpeed(CacheEntity);
         }
 
         protected override void FixedUpdate()
