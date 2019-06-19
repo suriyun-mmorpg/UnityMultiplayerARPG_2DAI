@@ -23,7 +23,7 @@ namespace MultiplayerARPG
             }
         }
 
-        public override void EntityOnSetup(BaseCharacterEntity entity)
+        public override void EntityOnSetup(BaseGameEntity entity)
         {
             base.EntityOnSetup(entity);
             CacheNetTransform.onTeleport = (position, rotation) =>
@@ -32,10 +32,8 @@ namespace MultiplayerARPG
             };
         }
 
-        protected override void Update()
+        protected void Update()
         {
-            base.Update();
-
             if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
             {
                 (CacheAIPath as MonoBehaviour).enabled = false;
@@ -53,7 +51,7 @@ namespace MultiplayerARPG
             // Force set AILerp settings
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
-            CacheAIPath.maxSpeed = gameplayRule.GetMoveSpeed(CacheEntity);
+            CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
         }
 
         protected override void FixedUpdate()
@@ -64,7 +62,7 @@ namespace MultiplayerARPG
             if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
                 return;
 
-            if (currentDestination.HasValue && !IsDead())
+            if (currentDestination.HasValue && CanMove())
             {
                 // Set destination to AI Path
                 if (CacheAIPath.isStopped)
