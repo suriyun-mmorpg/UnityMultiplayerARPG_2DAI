@@ -9,7 +9,7 @@
     {
         public override void InitialRequiredComponents()
         {
-            CharacterMovement = GetComponent<BaseCharacterMovement>();
+            CharacterMovement = GetComponent<BaseEntityMovement>();
             if (CharacterMovement == null)
                 CharacterMovement = gameObject.AddComponent<AstarCharacterMovement2D>();
         }

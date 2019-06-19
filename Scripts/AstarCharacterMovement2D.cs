@@ -5,7 +5,7 @@ using Pathfinding;
 
 namespace MultiplayerARPG
 {
-    public class AstarCharacterMovement2D : RigidBodyCharacterMovement2D
+    public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
         private IAstarAI cacheAIPath;
         public IAstarAI CacheAIPath
