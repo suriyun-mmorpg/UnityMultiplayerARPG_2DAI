@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 114877638974942912}
   - component: {fileID: 114308812000665012}
   - component: {fileID: 114383154828356954}
+  - component: {fileID: 114423900364055418}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
   m_TagString: Untagged
@@ -394,6 +395,19 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &114423900364055418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777251013356746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a250dc50d53944b80c6628ab2509d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainModel: {fileID: 114424167947571634}
+  vehicleModels: []
 --- !u!114 &114424167947571634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,7 +419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab0561f743b29941b9e3fed07578b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataId: -1020703260
   hiddingObjects: []
   effectContainers:
   - effectSocket: Floor
@@ -413,6 +426,8 @@ MonoBehaviour:
   - effectSocket: Body
     transform: {fileID: 4848377747683098}
   setEffectContainersBySetters: 0
+  modelManager: {fileID: 114423900364055418}
+  modelId: 
   equipmentContainers: []
   setEquipmentContainersBySetters: 0
   spriteRenderer: {fileID: 212157896959509878}
@@ -491,19 +506,6 @@ MonoBehaviour:
     audioClips: []
   weaponAnimations2D: []
   skillAnimations2D: []
-  defaultSkillCastAnimation2D:
-    down: {fileID: 0}
-    up: {fileID: 0}
-    left: {fileID: 0}
-    right: {fileID: 0}
-    downLeft: {fileID: 0}
-    downRight: {fileID: 0}
-    upLeft: {fileID: 0}
-    upRight: {fileID: 0}
-    triggerDurationRate: 0
-    extraDuration: 0
-    audioClips: []
-  skillCastAnimations2D: []
   magnitudeToPlayMoveClip: 0.1
   sampleAnimation: 0
   sampleDirection: 0
@@ -642,6 +644,37 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 
+  movementState:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 1
+    syncMode: 0
+    value: 0
+  currentDirection:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 1
+    syncMode: 0
+    value: {x: 0, y: 0}
+  passengingVehicle:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 1
+    syncMode: 0
+    value:
+      objectId: 0
+      seatIndex: 0
+  cameraTargetTransform: {fileID: 0}
+  model: {fileID: 114424167947571634}
   currentHp:
     behaviour: {fileID: 0}
     elementId: 0
