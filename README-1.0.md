@@ -1,3 +1,5 @@
+**This is document for older version (1.0) which work with MMORPG KIT version below 1.46**
+
 # UnityMultiplayerARPG_2DAI
 
 AI implement for 2D mode, which implements [A* Pathfinding Project](https://arongranberg.com/astar/)
