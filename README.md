@@ -4,21 +4,9 @@ AI implement for 2D mode, which implements [A* Pathfinding Project](https://aron
 
 Their package files will not included in this repository, visit their site to download it :)
 
-## Setup Player Character Entity
+## Setup Player Character Entity / Monster Character Entity
 
-- Change `Player Character Entity 2D` to `Player Character Entity 2DAI`
-- Attach `AI Lerp` or `AI Path` component
-- Don't enable rotation for `AI Lerp` or `AI Path`
-
-![](./DocsMaterials/1.png)
-
-- If you use `AI Path`, set `Orientation` to `YAxisForward (for 2D games)` set `Radius` and `Height` fit to your character
-
-![](./DocsMaterials/2.png)
-
-## Setup Monster Character Entity
-
-- Change `Monster Activity Component 2D` to `Monster Activity Component 2DAI`
+- Attach `A Star Character Movement 2D` to your character entity
 - Attach `AI Lerp` or `AI Path` component
 - Don't enable rotation for `AI Lerp` or `AI Path`
 
