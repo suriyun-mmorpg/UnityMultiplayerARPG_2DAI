@@ -649,16 +649,17 @@ MonoBehaviour:
     layerIndex: 14
   nonTargetingLayers:
   - layerIndex: 11
-  groundOrWallLayers: []
   itemAppearDuration: 60
   itemLootLockDuration: 5
-  coCharacterActionDuration: 5
+  dealingRequestDuration: 5
   pickUpItemDistance: 0.5
   dropDistance: 0.5
   conversationDistance: 1
   buildDistance: 2
   localChatDistance: 10
+  maxEquipWeaponSet: 2
   inventorySystem: 0
+  baseSlotLimit: 0
   playerStorage:
     weightLimit: 0
     slotLimit: 0
@@ -751,6 +752,8 @@ MonoBehaviour:
     keyCode: 114
   - keyName: ExitVehicle
     keyCode: 120
+  - keyName: SwitchEquipWeaponSet
+    keyCode: 96
 --- !u!114 &1379718505
 MonoBehaviour:
   m_ObjectHideFlags: 0
