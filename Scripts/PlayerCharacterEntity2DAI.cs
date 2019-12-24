@@ -1,4 +1,6 @@
-﻿namespace MultiplayerARPG
+﻿using UnityEngine;
+
+namespace MultiplayerARPG
 {
     [System.Obsolete("This is deprecated, but still keep it for backward compatibilities. Use `PlayerCharacterEntity` instead")]
     /// <summary>
@@ -10,7 +12,7 @@
         public override void InitialRequiredComponents()
         {
             if (Movement == null)
-                Movement = gameObject.AddComponent<AstarCharacterMovement2D>();
+                Debug.LogError("[" + ToString() + "] Did not setup entity movement component to this entity.");
         }
     }
 }

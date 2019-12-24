@@ -23,9 +23,9 @@ namespace MultiplayerARPG
             }
         }
 
-        public override void EntityOnSetup(BaseGameEntity entity)
+        public override void EntityOnSetup()
         {
-            base.EntityOnSetup(entity);
+            base.EntityOnSetup();
             CacheNetTransform.onTeleport = (position, rotation) =>
             {
                 CacheAIPath.Teleport(position);
@@ -54,7 +54,7 @@ namespace MultiplayerARPG
             CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
         }
 
-        protected override void FixedUpdate()
+        public override void EntityFixedUpdate()
         {
             if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
                 return;
