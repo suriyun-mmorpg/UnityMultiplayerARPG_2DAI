@@ -34,13 +34,13 @@ namespace MultiplayerARPG
 
         protected void Update()
         {
-            if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+            if (CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
             {
                 (CacheAIPath as MonoBehaviour).enabled = false;
                 return;
             }
 
-            if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+            if (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
             {
                 (CacheAIPath as MonoBehaviour).enabled = false;
                 return;
@@ -56,10 +56,10 @@ namespace MultiplayerARPG
 
         public override void EntityFixedUpdate()
         {
-            if (movementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+            if (CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
                 return;
 
-            if (movementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+            if (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
                 return;
 
             if (currentDestination.HasValue && CanMove())
