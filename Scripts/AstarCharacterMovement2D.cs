@@ -62,7 +62,7 @@ namespace MultiplayerARPG
             if (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
                 return;
 
-            if (currentDestination.HasValue && CanMove())
+            if (currentDestination.HasValue && CacheEntity.CanMove())
             {
                 // Set destination to AI Path
                 if (CacheAIPath.isStopped)
@@ -71,9 +71,9 @@ namespace MultiplayerARPG
             }
 
             if (CacheAIPath.velocity.magnitude > 0)
-                UpdateCurrentDirection(CacheAIPath.velocity.normalized);
+                CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
-            SetMovementState(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
+            CacheEntity.SetMovement(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
         }
 
         public override void StopMove()
