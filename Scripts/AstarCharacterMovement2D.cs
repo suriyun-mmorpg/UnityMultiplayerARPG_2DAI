@@ -7,19 +7,16 @@ namespace MultiplayerARPG
 {
     public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
-        private IAstarAI cacheAIPath;
-        public IAstarAI CacheAIPath
+        public IAstarAI CacheAIPath { get; private set; }
+
+        public override void EntityAwake()
         {
-            get
+            base.EntityAwake();
+            CacheAIPath = GetComponent<IAstarAI>();
+            if (CacheAIPath == null)
             {
-                if (cacheAIPath == null)
-                    cacheAIPath = GetComponent<IAstarAI>();
-                if (cacheAIPath == null)
-                {
-                    cacheAIPath = gameObject.AddComponent<AILerp>();
-                    (cacheAIPath as AILerp).enableRotation = false;
-                }
-                return cacheAIPath;
+                CacheAIPath = gameObject.AddComponent<AILerp>();
+                (CacheAIPath as AILerp).enableRotation = false;
             }
         }
 
