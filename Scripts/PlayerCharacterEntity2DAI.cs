@@ -11,6 +11,7 @@ namespace MultiplayerARPG
     {
         public override void InitialRequiredComponents()
         {
+            base.InitialRequiredComponents();
             if (Movement == null)
                 Debug.LogError("[" + ToString() + "] Did not setup entity movement component to this entity.");
         }
