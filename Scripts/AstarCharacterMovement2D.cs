@@ -8,6 +8,7 @@ namespace MultiplayerARPG
     public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
         public IAstarAI CacheAIPath { get; private set; }
+        private bool isAwaken;
 
         public override void EntityAwake()
         {
@@ -18,6 +19,7 @@ namespace MultiplayerARPG
                 CacheAIPath = gameObject.AddComponent<AILerp>();
                 (CacheAIPath as AILerp).enableRotation = false;
             }
+            isAwaken = true;
         }
 
         public override void EntityOnSetup()
@@ -29,7 +31,7 @@ namespace MultiplayerARPG
             };
         }
 
-        protected void Update()
+        public override void EntityUpdate()
         {
             if (CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
             {
@@ -49,6 +51,12 @@ namespace MultiplayerARPG
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
             CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
+        }
+
+        public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
+        {
+            if (moveDirection.magnitude > 0.5f)
+                PointClickMovement(CacheTransform.position + moveDirection);
         }
 
         public override void EntityFixedUpdate()
@@ -75,7 +83,7 @@ namespace MultiplayerARPG
 
         public override void StopMove()
         {
-            if (!CacheAIPath.isStopped)
+            if (isAwaken && !CacheAIPath.isStopped)
                 CacheAIPath.isStopped = true;
             base.StopMove();
         }
