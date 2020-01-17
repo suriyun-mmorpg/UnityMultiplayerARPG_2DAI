@@ -70,22 +70,13 @@ namespace MultiplayerARPG
             if (currentDestination.HasValue && CacheEntity.CanMove())
             {
                 // Set destination to AI Path
-                if (CacheAIPath.isStopped)
-                    CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
             }
 
-            if (CacheAIPath.velocity.magnitude > 0)
+            if (CacheAIPath.velocity.magnitude > 0.5f)
                 CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
             CacheEntity.SetMovement(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
-        }
-
-        public override void StopMove()
-        {
-            if (isAwaken && !CacheAIPath.isStopped)
-                CacheAIPath.isStopped = true;
-            base.StopMove();
         }
     }
 }
