@@ -55,7 +55,7 @@ namespace MultiplayerARPG
 
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
         {
-            if (moveDirection.magnitude > 0.5f)
+            if (moveDirection.sqrMagnitude > 0.25f)
                 PointClickMovement(CacheTransform.position + moveDirection);
         }
 
@@ -73,10 +73,10 @@ namespace MultiplayerARPG
                 CacheAIPath.destination = currentDestination.Value;
             }
 
-            if (CacheAIPath.velocity.magnitude > 0.5f)
+            if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
                 CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
-            CacheEntity.SetMovement(CacheAIPath.velocity.magnitude > 0 ? MovementState.Forward : MovementState.None);
+            CacheEntity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
         }
     }
 }
