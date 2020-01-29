@@ -8,7 +8,6 @@ namespace MultiplayerARPG
     public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
         public IAstarAI CacheAIPath { get; private set; }
-        private bool isAwaken;
 
         public override void EntityAwake()
         {
@@ -19,7 +18,6 @@ namespace MultiplayerARPG
                 CacheAIPath = gameObject.AddComponent<AILerp>();
                 (CacheAIPath as AILerp).enableRotation = false;
             }
-            isAwaken = true;
         }
 
         public override void EntityOnSetup()
