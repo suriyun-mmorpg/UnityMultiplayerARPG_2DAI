@@ -51,6 +51,13 @@ namespace MultiplayerARPG
             CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
         }
 
+        public override void StopMove()
+        {
+            base.StopMove();
+            if (CacheAIPath != null)
+                CacheAIPath.isStopped = true;
+        }
+
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
         {
             if (moveDirection.sqrMagnitude > 0.25f)
@@ -68,6 +75,7 @@ namespace MultiplayerARPG
             if (currentDestination.HasValue && CacheEntity.CanMove())
             {
                 // Set destination to AI Path
+                CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
             }
 
@@ -75,6 +83,12 @@ namespace MultiplayerARPG
                 CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
             CacheEntity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
+        }
+
+        public override void SetLookRotation(Quaternion rotation)
+        {
+            if (CacheAIPath.velocity.sqrMagnitude == 0f)
+                base.SetLookRotation(rotation);
         }
     }
 }
