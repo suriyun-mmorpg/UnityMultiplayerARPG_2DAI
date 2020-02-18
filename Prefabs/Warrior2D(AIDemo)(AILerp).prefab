@@ -358,7 +358,7 @@ MonoBehaviour:
   model: {fileID: 114902627479170308}
   cameraTargetTransform: {fileID: 0}
   fpsCameraTargetTransform: {fileID: 0}
-  movementSecure: 0
+  movementSecure: 1
   movementState:
     behaviour: {fileID: 0}
     elementId: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
       colors: 
       slots: 
       dnas: 
-  characterTitle: Mike
+  characterTitle: AILerp
   characterTitles: []
   playerCharacters:
   - {fileID: 11400000, guid: df4b0a5cc68c15a4090f0dc937a52246, type: 2}

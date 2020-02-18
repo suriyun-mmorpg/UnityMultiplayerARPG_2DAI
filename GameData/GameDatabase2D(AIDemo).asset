@@ -33,9 +33,10 @@ MonoBehaviour:
   guildSkills: []
   playerCharacterEntities:
   - {fileID: 114249800215842032, guid: 56f22f496232a2640ba37e25b1ccacd8, type: 2}
+  - {fileID: 114249800215842032, guid: 44bb136d7bf6d554eb32b36c9d0e19d3, type: 2}
   monsterCharacterEntities:
   - {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 2}
-  mountEntities: []
+  vehicleEntities: []
   mapInfos:
   - {fileID: 11400000, guid: 55030227750854647bdff113f1960462, type: 2}
   factions: []

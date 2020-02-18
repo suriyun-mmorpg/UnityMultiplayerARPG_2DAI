@@ -316,6 +316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainModel: {fileID: 114902627479170308}
+  fpsModelPrefab: {fileID: 0}
+  fpsModelOffsets: {x: 0, y: 0, z: 0}
   vehicleModels: []
 --- !u!114 &114244173189548708
 MonoBehaviour:
@@ -388,16 +390,29 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 
+  model: {fileID: 114902627479170308}
+  cameraTargetTransform: {fileID: 0}
+  fpsCameraTargetTransform: {fileID: 0}
+  movementSecure: 1
   movementState:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 2
     sendInterval: 0.1
-    alwaysSync: 0
+    alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
     value: 0
-  currentDirection:
+  extraMovementState:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 1
+    doNotSyncInitialDataImmediately: 1
+    syncMode: 0
+    value: 0
+  direction2D:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 2
@@ -405,7 +420,6 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
-    value: {x: 0, y: 0}
   passengingVehicle:
     behaviour: {fileID: 0}
     elementId: 0
@@ -417,8 +431,8 @@ MonoBehaviour:
     value:
       objectId: 0
       seatIndex: 0
-  cameraTargetTransform: {fileID: 0}
-  model: {fileID: 114902627479170308}
+  combatTextTransform: {fileID: 4532387271618742}
+  opponentAimTransform: {fileID: 0}
   currentHp:
     behaviour: {fileID: 0}
     elementId: 0
@@ -428,12 +442,7 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  combatTextTransform: {fileID: 4532387271618742}
-  opponentAimTransform: {fileID: 0}
   race: {fileID: 0}
-  database: {fileID: 0}
-  uiElementTransform: {fileID: 0}
-  miniMapElementContainer: {fileID: 0}
   meleeDamageTransform: {fileID: 0}
   missileDamageTransform: {fileID: 4956304626148802}
   characterUITransform: {fileID: 4122315194440306}
@@ -502,34 +511,7 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  equipWeapons:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 3
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value:
-      rightHand:
-        dataId: 0
-        level: 0
-        amount: 0
-        durability: 0
-        exp: 0
-        lockRemainsDuration: 0
-        ammo: 0
-        sockets: 
-      leftHand:
-        dataId: 0
-        level: 0
-        amount: 0
-        durability: 0
-        exp: 0
-        lockRemainsDuration: 0
-        ammo: 0
-        sockets: 
-  isHidding:
+  equipWeaponSet:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 3
@@ -538,6 +520,28 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
+  pitch:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 2
+    value: 0
+  targetEntityId:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 2
+    value: 0
+  selectableWeaponSets:
+    behaviour: {fileID: 0}
+    elementId: 0
+    forOwnerOnly: 0
   attributes:
     behaviour: {fileID: 0}
     elementId: 0
@@ -580,11 +584,21 @@ MonoBehaviour:
       colors: 
       slots: 
       dnas: 
-  characterTitle: Mike
+  characterTitle: AIPath
+  characterTitles: []
   playerCharacters:
   - {fileID: 11400000, guid: df4b0a5cc68c15a4090f0dc937a52246, type: 2}
   controllerPrefab: {fileID: 0}
   dataId:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    value: 0
+  factionId:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 3
@@ -656,6 +670,24 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
+  respawnMapName:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    value: 
+  respawnPosition:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    value: {x: 0, y: 0, z: 0}
   isWarping:
     behaviour: {fileID: 0}
     elementId: 0
@@ -665,6 +697,24 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
     value: 0
+  hasAimPosition:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 2
+    value: 0
+  aimPosition:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 2
+    value: {x: 0, y: 0, z: 0}
   hotkeys:
     behaviour: {fileID: 0}
     elementId: 0
@@ -693,6 +743,7 @@ MonoBehaviour:
   ownerClientSendInterval: 0.01
   snapThreshold: 5
   movementTheshold: 0.075
+  rotateTheshold: 1
   syncPositionX: 0
   syncPositionY: 0
   syncPositionZ: 1
@@ -711,7 +762,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoppingDistance: 0.1
-  movementSecure: 0
 --- !u!114 &114395829741571220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -831,6 +881,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiddingObjects: []
+  hiddingRenderers: []
+  fpsHiddingObjects: []
+  fpsHiddingRenderers: []
   effectContainers:
   - effectSocket: Floor
     transform: {fileID: 4325415483086858}
@@ -838,7 +891,6 @@ MonoBehaviour:
     transform: {fileID: 4220959519723220}
   setEffectContainersBySetters: 0
   modelManager: {fileID: 114019986012758338}
-  modelId: 
   equipmentContainers: []
   setEquipmentContainersBySetters: 0
   spriteRenderer: {fileID: 212720684570947580}
@@ -879,10 +931,11 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0.7
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips:
     - {fileID: 8300000, guid: 543fbe2f32e015749bafb0f7691eb41b, type: 3}
-  defaultSkillCastClip2D:
+  defaultSkillCastAnimation2D:
     down: {fileID: 0}
     up: {fileID: 0}
     left: {fileID: 0}
@@ -901,6 +954,7 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips: []
   defaultReloadAnimation2D:
@@ -913,6 +967,7 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips: []
   weaponAnimations2D:
@@ -927,6 +982,7 @@ MonoBehaviour:
       upLeft: {fileID: 0}
       upRight: {fileID: 0}
       triggerDurationRate: 0.7
+      multiHitTriggerDurationRates: []
       extraDuration: 0
       audioClips:
       - {fileID: 8300000, guid: 256b98dc23466734897f7fc309e161e5, type: 3}
@@ -940,6 +996,7 @@ MonoBehaviour:
       upLeft: {fileID: 0}
       upRight: {fileID: 0}
       triggerDurationRate: 0
+      multiHitTriggerDurationRates: []
       extraDuration: 0
       audioClips: []
     rightHandReloadAnimation:
@@ -952,6 +1009,7 @@ MonoBehaviour:
       upLeft: {fileID: 0}
       upRight: {fileID: 0}
       triggerDurationRate: 0
+      multiHitTriggerDurationRates: []
       extraDuration: 0
       audioClips: []
     leftHandReloadAnimation:
@@ -964,10 +1022,10 @@ MonoBehaviour:
       upLeft: {fileID: 0}
       upRight: {fileID: 0}
       triggerDurationRate: 0
+      multiHitTriggerDurationRates: []
       extraDuration: 0
       audioClips: []
   skillAnimations2D: []
-  magnitudeToPlayMoveClip: 0.1
   sampleAnimation: 1
   sampleDirection: 0
   sampleAlwaysLoop: 1
