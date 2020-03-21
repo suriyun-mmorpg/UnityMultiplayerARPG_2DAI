@@ -2,12 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using LiteNetLibManager;
 
 namespace MultiplayerARPG
 {
     public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
         public IAstarAI CacheAIPath { get; private set; }
+        protected bool remoteReachedDestination = true;
+        protected bool previousReachedDestination;
+
+        public bool ReachedDestination
+        {
+            get
+            {
+                if ((CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
+                    (CacheEntity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient))
+                    return CacheAIPath.remainingDistance < 0.05f;
+                return remoteReachedDestination;
+            }
+        }
 
         public override void EntityAwake()
         {
@@ -23,10 +37,16 @@ namespace MultiplayerARPG
         public override void EntityOnSetup()
         {
             base.EntityOnSetup();
+            CacheEntity.RegisterNetFunction<bool>(NetFuncSetReachedDestination);
             CacheNetTransform.onTeleport = (position, rotation) =>
             {
                 CacheAIPath.Teleport(position);
             };
+        }
+
+        protected void NetFuncSetReachedDestination(bool reachedDestination)
+        {
+            remoteReachedDestination = reachedDestination;
         }
 
         public override void EntityUpdate()
@@ -83,6 +103,13 @@ namespace MultiplayerARPG
                 CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
             CacheEntity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
+
+            bool reachedDestination = CacheAIPath.remainingDistance < 0.05f;
+            if (previousReachedDestination != reachedDestination)
+            {
+                CacheEntity.CallNetFunction(NetFuncSetReachedDestination, FunctionReceivers.All, reachedDestination);
+                previousReachedDestination = reachedDestination;
+            }
         }
 
         public override void SetLookRotation(Quaternion rotation)
