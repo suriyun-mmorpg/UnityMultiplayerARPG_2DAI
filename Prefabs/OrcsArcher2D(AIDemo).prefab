@@ -124,9 +124,9 @@ GameObject:
   - component: {fileID: 114398214965351400}
   - component: {fileID: 114715038711056228}
   - component: {fileID: 114877638974942912}
-  - component: {fileID: 114308812000665012}
   - component: {fileID: 114383154828356954}
   - component: {fileID: 114423900364055418}
+  - component: {fileID: 114526811231809040}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
   m_TagString: Untagged
@@ -316,41 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44d5853016663a4b9be1f277173d689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114308812000665012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777251013356746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.25
-  height: 0.01
-  repathRate: 0
-  canSearch: 1
-  canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 1
-  enableRotation: 0
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: 1024
-  rotationSpeed: 360
-  slowdownDistance: 0
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
 --- !u!114 &114383154828356954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,7 +328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoppingDistance: 0.1
-  movementSecure: 0
 --- !u!114 &114383526974588364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,6 +371,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainModel: {fileID: 114424167947571634}
+  fpsModelPrefab: {fileID: 0}
+  fpsModelOffsets: {x: 0, y: 0, z: 0}
   vehicleModels: []
 --- !u!114 &114424167947571634
 MonoBehaviour:
@@ -420,6 +386,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiddingObjects: []
+  hiddingRenderers: []
+  fpsHiddingObjects: []
+  fpsHiddingRenderers: []
   effectContainers:
   - effectSocket: Floor
     transform: {fileID: 4926639783571920}
@@ -427,7 +396,6 @@ MonoBehaviour:
     transform: {fileID: 4848377747683098}
   setEffectContainersBySetters: 0
   modelManager: {fileID: 114423900364055418}
-  modelId: 
   equipmentContainers: []
   setEquipmentContainersBySetters: 0
   spriteRenderer: {fileID: 212157896959509878}
@@ -468,10 +436,11 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0.7
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips:
     - {fileID: 8300000, guid: 543fbe2f32e015749bafb0f7691eb41b, type: 3}
-  defaultSkillCastClip2D:
+  defaultSkillCastAnimation2D:
     down: {fileID: 0}
     up: {fileID: 0}
     left: {fileID: 0}
@@ -490,6 +459,7 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips: []
   defaultReloadAnimation2D:
@@ -502,11 +472,11 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
     triggerDurationRate: 0
+    multiHitTriggerDurationRates: []
     extraDuration: 0
     audioClips: []
   weaponAnimations2D: []
   skillAnimations2D: []
-  magnitudeToPlayMoveClip: 0.1
   sampleAnimation: 0
   sampleDirection: 0
   sampleAlwaysLoop: 1
@@ -530,12 +500,35 @@ MonoBehaviour:
   ownerClientSendInterval: 0.01
   snapThreshold: 5
   movementTheshold: 0.075
+  rotateTheshold: 1
   syncPositionX: 0
   syncPositionY: 0
   syncPositionZ: 1
   syncRotationX: 1
   syncRotationY: 1
   syncRotationZ: 1
+--- !u!114 &114526811231809040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777251013356746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  speed: 3
+  orientation: 0
+  enableRotation: 0
+  rotationSpeed: 10
+  interpolatePathSwitches: 1
+  switchPathInterpolationSpeed: 5
+  targetCompatibility: {fileID: 0}
 --- !u!114 &114715038711056228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -550,8 +543,7 @@ MonoBehaviour:
   randomWanderDelayMin: 2
   randomWanderDelayMax: 5
   randomWanderDistance: 2
-  aggressiveFindTargetDelay: 1
-  setTargetDestinationDelay: 1
+  findEnemyDelay: 1
   followTargetDuration: 5
   turnToEnemySpeed: 800
 --- !u!114 &114742447895139976
@@ -644,16 +636,29 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 
+  model: {fileID: 114424167947571634}
+  cameraTargetTransform: {fileID: 0}
+  fpsCameraTargetTransform: {fileID: 0}
+  movementSecure: 0
   movementState:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 2
     sendInterval: 0.1
-    alwaysSync: 0
+    alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
     value: 0
-  currentDirection:
+  extraMovementState:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 1
+    doNotSyncInitialDataImmediately: 1
+    syncMode: 0
+    value: 0
+  direction2D:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 2
@@ -661,7 +666,6 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
-    value: {x: 0, y: 0}
   passengingVehicle:
     behaviour: {fileID: 0}
     elementId: 0
@@ -673,8 +677,8 @@ MonoBehaviour:
     value:
       objectId: 0
       seatIndex: 0
-  cameraTargetTransform: {fileID: 0}
-  model: {fileID: 114424167947571634}
+  combatTextTransform: {fileID: 4449610483058146}
+  opponentAimTransform: {fileID: 0}
   currentHp:
     behaviour: {fileID: 0}
     elementId: 0
@@ -684,12 +688,7 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  combatTextTransform: {fileID: 4449610483058146}
-  opponentAimTransform: {fileID: 0}
   race: {fileID: 0}
-  database: {fileID: 0}
-  uiElementTransform: {fileID: 0}
-  miniMapElementContainer: {fileID: 0}
   meleeDamageTransform: {fileID: 0}
   missileDamageTransform: {fileID: 4341749962177036}
   characterUITransform: {fileID: 4730074270919390}
@@ -758,34 +757,7 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
-  equipWeapons:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 3
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value:
-      rightHand:
-        dataId: 0
-        level: 0
-        amount: 0
-        durability: 0
-        exp: 0
-        lockRemainsDuration: 0
-        ammo: 0
-        sockets: 
-      leftHand:
-        dataId: 0
-        level: 0
-        amount: 0
-        durability: 0
-        exp: 0
-        lockRemainsDuration: 0
-        ammo: 0
-        sockets: 
-  isHidding:
+  equipWeaponSet:
     behaviour: {fileID: 0}
     elementId: 0
     deliveryMethod: 3
@@ -794,6 +766,28 @@ MonoBehaviour:
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
+  pitch:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    value: 0
+  targetEntityId:
+    behaviour: {fileID: 0}
+    elementId: 0
+    deliveryMethod: 3
+    sendInterval: 0.1
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    value: 0
+  selectableWeaponSets:
+    behaviour: {fileID: 0}
+    elementId: 0
+    forOwnerOnly: 0
   attributes:
     behaviour: {fileID: 0}
     elementId: 0
@@ -822,6 +816,8 @@ MonoBehaviour:
     behaviour: {fileID: 0}
     elementId: 0
     forOwnerOnly: 1
+  characterTitle: 
+  characterTitles: []
   monsterCharacter: {fileID: 11400000, guid: 63ab244077edf394f805979d0e1c1492, type: 2}
   destroyDelay: 2
   destroyRespawnDelay: 5
@@ -833,6 +829,7 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    value: 0
   summonType:
     behaviour: {fileID: 0}
     elementId: 0
