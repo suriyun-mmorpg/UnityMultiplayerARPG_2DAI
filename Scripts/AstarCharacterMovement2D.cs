@@ -33,17 +33,6 @@ namespace MultiplayerARPG
                 (CacheAIPath as AILerp).enableRotation = false;
             }
             Seeker = GetComponent<Seeker>();
-            Seeker.pathCallback += OnPathComplete;
-        }
-
-        public override void EntityOnDestroy()
-        {
-            base.EntityOnDestroy();
-            Seeker.pathCallback -= OnPathComplete;
-        }
-        protected void OnPathComplete(Path _p)
-        {
-            CacheAIPath.destination = (Vector3)(_p.path[_p.path.Count - 1].position / 100f);
         }
 
         public override void EntityOnSetup()
@@ -79,13 +68,6 @@ namespace MultiplayerARPG
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
             CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
-        }
-
-        public override void StopMove()
-        {
-            base.StopMove();
-            if (CacheAIPath != null)
-                CacheAIPath.isStopped = true;
         }
 
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
