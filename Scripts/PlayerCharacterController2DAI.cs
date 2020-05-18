@@ -9,25 +9,93 @@ namespace MultiplayerARPG
 	public class PlayerCharacterController2DAI : PlayerCharacterController
 	{
         AstarCharacterMovement2D movement;
-        Seeker seeker;
+        GameObject groundSeekerGameObject;
+        Seeker groundSeeker;
+        AILerp groundAiLerp;
+        GameObject entitySeekerGameObject;
+        Seeker entitySeeker;
+        AILerp entityAiLerp;
+        Vector3 measuringPositionOffsets;
+        Vector3 expectTargetPosition;
+        float expectTargetDistance;
 
         protected override void Awake()
         {
             base.Awake();
+            // Ground seeker
+            groundSeekerGameObject = new GameObject("_ControllerGroundSeeker");
+            groundSeeker = groundSeekerGameObject.AddComponent<Seeker>();
+            groundSeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
+            groundSeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
+            groundSeeker.pathCallback += OnGroundPathComplete;
+            groundAiLerp = groundSeekerGameObject.AddComponent<AILerp>();
+            groundAiLerp.enableRotation = false;
+            groundAiLerp.speed = 1000f; // Move to target immediately
+            // Entity seeker
+            entitySeekerGameObject = new GameObject("_ControllerEntitySeeker");
+            entitySeeker = entitySeekerGameObject.AddComponent<Seeker>();
+            entitySeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
+            entitySeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
+            entitySeeker.pathCallback += OnEntityPathComplete;
+            entityAiLerp = entitySeekerGameObject.AddComponent<AILerp>();
+            entityAiLerp.enableRotation = false;
+            entityAiLerp.speed = 1000f; // Move to target immediately
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            groundSeeker.pathCallback -= OnGroundPathComplete;
+            Destroy(groundSeekerGameObject);
+            entitySeeker.pathCallback -= OnEntityPathComplete;
+            Destroy(entitySeekerGameObject);
+        }
+
+        public override void UpdatePointClickInput()
+        {
+            base.UpdatePointClickInput();
+            if (getMouseDown)
+                previousPointClickPosition = Vector3.positiveInfinity;
+        }
+
+        protected void OnGroundPathComplete(Path _p)
+        {
+            Vector3 nodePosition = (Vector3)_p.path[_p.path.Count - 1].position;
+            destination = nodePosition;
+            PlayerCharacterEntity.PointClickMovement(nodePosition);
+        }
+
+        protected void OnEntityPathComplete(Path _p)
+        {
+            Vector3 nodePosition;
+            for (int i = 0; i < _p.path.Count; ++i)
+            {
+                nodePosition = (Vector3)_p.path[i].position;
+                if (base.OverlappedEntity(TargetEntity, nodePosition + measuringPositionOffsets, expectTargetPosition, expectTargetDistance))
+                {
+                    destination = null;
+                    PlayerCharacterEntity.PointClickMovement(nodePosition);
+                    break;
+                }
+            }
+        }
+
+        protected override void OnPointClickOnGround(Vector3 targetPosition)
+        {
+            if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE)
+                groundSeeker.StartPath(MovementTransform.position, targetPosition);
         }
 
         protected override void Setup(BasePlayerCharacterEntity characterEntity)
         {
             base.Setup(characterEntity);
             movement = characterEntity.GetComponent<AstarCharacterMovement2D>();
-            seeker = characterEntity.GetComponent<Seeker>();
         }
 
         protected override void Desetup(BasePlayerCharacterEntity characterEntity)
         {
             base.Desetup(characterEntity);
             movement = null;
-            seeker = null;
         }
 
         protected override void UpdateTargetEntityPosition(Vector3 measuringPosition, Vector3 targetPosition, float distance)
@@ -35,98 +103,20 @@ namespace MultiplayerARPG
             if (PlayerCharacterEntity.IsPlayingActionAnimation())
                 return;
 
-            Path path = seeker.StartPath(measuringPosition, targetPosition);
-            if (path.path.Count > 0)
+            if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE &&
+                Vector3.Distance(previousPointClickPosition, targetPosition) > MIN_START_MOVE_DISTANCE)
             {
-                targetPosition = (Vector3)path.path[path.path.Count - 1].position;
-                Vector3 direction = (targetPosition - measuringPosition).normalized;
-                Vector3 position = targetPosition - (direction * (distance - StoppingDistance));
-                if (Vector3.Distance(previousPointClickPosition, position) > 0.01f)
-                {
-                    PlayerCharacterEntity.PointClickMovement(position);
-                    previousPointClickPosition = position;
-                }
+                measuringPositionOffsets = measuringPosition - MovementTransform.position;
+                expectTargetPosition = targetPosition;
+                expectTargetDistance = distance;
+                entitySeeker.StartPath(MovementTransform.position, targetPosition);
+                previousPointClickPosition = targetPosition;
             }
         }
 
-		protected override void AttackOrMoveToEntity(IDamageableEntity entity, float distance, int layerMask)
+        protected override bool OverlappedEntity<T>(T entity, Vector3 measuringPosition, Vector3 expectedOverlappedPosition, float distance)
         {
-            Transform damageTransform = PlayerCharacterEntity.GetWeaponDamageInfo(ref isLeftHandAttacking).GetDamageTransform(PlayerCharacterEntity, isLeftHandAttacking);
-            Vector3 measuringPosition = damageTransform.position;
-            Vector3 targetPosition = entity.OpponentAimTransform.position;
-            Debug.LogError("Dist " + Vector3.Distance(measuringPosition, targetPosition) + " ag dist " + distance + " ? " + movement.reachedEndOfPath);
-            if (Vector3.Distance(measuringPosition, targetPosition) <= distance && movement.reachedEndOfPath)
-            {
-                // Stop movement to attack
-                PlayerCharacterEntity.StopMove();
-                // Turn character to attacking target
-                TurnCharacterToEntity(entity.Entity);
-                // Do action
-                RequestAttack();
-                // This function may be used by extending classes
-                OnAttackOnEntity();
-            }
-            else
-            {
-                // Move to target entity
-                UpdateTargetEntityPosition(measuringPosition, targetPosition, distance);
-            }
+            return base.OverlappedEntity(entity, measuringPosition, expectedOverlappedPosition, distance) && movement.reachedEndOfPath;
         }
-
-		protected override void UseSkillOrMoveToEntity(IDamageableEntity entity, float distance)
-        {
-            if (queueUsingSkill.skill != null)
-            {
-                Transform applyTransform = queueUsingSkill.skill.GetApplyTransform(PlayerCharacterEntity, false);
-                Vector3 measuringPosition = applyTransform.position;
-                Vector3 targetPosition = entity.OpponentAimTransform.position;
-                if ((entity.GetObjectId() == PlayerCharacterEntity.GetObjectId() /* Applying skill to user? */ ||
-                    Vector3.Distance(measuringPosition, targetPosition) <= distance) && movement.reachedEndOfPath)
-                {
-                    // Set next frame target action type
-                    targetActionType = queueUsingSkill.skill.IsAttack() ? TargetActionType.Attack : TargetActionType.Activate;
-                    // Stop movement to use skill
-                    PlayerCharacterEntity.StopMove();
-                    // Turn character to attacking target
-                    TurnCharacterToEntity(entity.Entity);
-                    // Use the skill
-                    RequestUsePendingSkill();
-                    // This function may be used by extending classes
-                    OnUseSkillOnEntity();
-                }
-                else
-                {
-                    // Move to target entity
-                    UpdateTargetEntityPosition(measuringPosition, targetPosition, distance);
-                }
-            }
-            else
-            {
-                // Can't use skill
-                targetActionType = TargetActionType.Activate;
-                ClearQueueUsingSkill();
-                return;
-            }
-        }
-
-		protected override void DoActionOrMoveToEntity(BaseGameEntity entity, float distance, Action action)
-        {
-            Vector3 measuringPosition = MovementTransform.position;
-            Vector3 targetPosition = entity.CacheTransform.position;
-            if (Vector3.Distance(measuringPosition, targetPosition) <= distance && movement.reachedEndOfPath)
-            {
-                // Stop movement to do action
-                PlayerCharacterEntity.StopMove();
-                // Do action
-                action.Invoke();
-                // This function may be used by extending classes
-                OnDoActionOnEntity();
-            }
-            else
-            {
-                // Move to target entity
-                UpdateTargetEntityPosition(measuringPosition, targetPosition, distance);
-            }
-        }
-	}
+    }
 }
