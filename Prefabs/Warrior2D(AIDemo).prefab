@@ -375,7 +375,7 @@ MonoBehaviour:
   syncTitle:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
   syncTitleB:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
   movementState:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
+    deliveryMethod: 1
     sendInterval: 0.1
     alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
@@ -406,7 +406,7 @@ MonoBehaviour:
   extraMovementState:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
+    deliveryMethod: 1
     sendInterval: 0.1
     alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
@@ -415,7 +415,7 @@ MonoBehaviour:
   direction2D:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
+    deliveryMethod: 1
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
@@ -423,7 +423,7 @@ MonoBehaviour:
   passengingVehicle:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
@@ -431,19 +431,21 @@ MonoBehaviour:
     value:
       objectId: 0
       seatIndex: 0
+  canSideSprint: 0
+  canBackwardSprint: 0
   combatTextTransform: {fileID: 4532387271618742}
   opponentAimTransform: {fileID: 0}
   currentHp:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
     value: 0
   race: {fileID: 0}
-  meleeDamageTransform: {fileID: 0}
+  meleeDamageTransform: {fileID: 4956304626148802}
   missileDamageTransform: {fileID: 4956304626148802}
   characterUITransform: {fileID: 4122315194440306}
   miniMapUITransform: {fileID: 4407621456926014}
@@ -451,7 +453,7 @@ MonoBehaviour:
   id:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -460,7 +462,7 @@ MonoBehaviour:
   level:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -469,7 +471,7 @@ MonoBehaviour:
   exp:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -478,7 +480,7 @@ MonoBehaviour:
   currentMp:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -496,7 +498,7 @@ MonoBehaviour:
   currentFood:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -505,7 +507,7 @@ MonoBehaviour:
   currentWater:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -514,7 +516,7 @@ MonoBehaviour:
   equipWeaponSet:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -523,7 +525,7 @@ MonoBehaviour:
   pitch:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
+    deliveryMethod: 1
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -532,7 +534,7 @@ MonoBehaviour:
   targetEntityId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -570,20 +572,6 @@ MonoBehaviour:
     behaviour: {fileID: 0}
     elementId: 0
     forOwnerOnly: 1
-  umaAvatarData:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 0
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value:
-      raceIndex: 0
-      genderIndex: 0
-      colors: 
-      slots: 
-      dnas: 
   characterTitle: AIPath
   characterTitles: []
   playerCharacters:
@@ -592,7 +580,7 @@ MonoBehaviour:
   dataId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -601,7 +589,7 @@ MonoBehaviour:
   factionId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -610,7 +598,7 @@ MonoBehaviour:
   statPoint:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -619,7 +607,7 @@ MonoBehaviour:
   skillPoint:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -628,7 +616,7 @@ MonoBehaviour:
   gold:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -637,7 +625,7 @@ MonoBehaviour:
   userGold:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -646,7 +634,7 @@ MonoBehaviour:
   userCash:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -655,7 +643,7 @@ MonoBehaviour:
   partyId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -664,7 +652,7 @@ MonoBehaviour:
   guildId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -673,7 +661,7 @@ MonoBehaviour:
   respawnMapName:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -682,7 +670,7 @@ MonoBehaviour:
   respawnPosition:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -691,7 +679,7 @@ MonoBehaviour:
   isWarping:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -700,7 +688,7 @@ MonoBehaviour:
   hasAimPosition:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 3
+    deliveryMethod: 2
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
@@ -709,7 +697,7 @@ MonoBehaviour:
   aimPosition:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
+    deliveryMethod: 1
     sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
