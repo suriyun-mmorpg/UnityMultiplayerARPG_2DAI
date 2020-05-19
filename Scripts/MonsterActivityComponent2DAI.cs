@@ -6,12 +6,12 @@ using UnityEngine.Profiling;
 
 namespace MultiplayerARPG
 {
-    [System.Obsolete("This is deprecated, but still keep it for backward compatibilities. Use `MonsterActivityComponent` instead")]
-    /// <summary>
-    /// This is deprecated, but still keep it for backward compatibilities.
-    /// Use `MonsterActivityComponent` instead
-    /// </summary>
-#pragma warning disable 0618
-    public class MonsterActivityComponent2DAI : MonsterActivityComponent2D { }
-#pragma warning restore 0618
+    public class MonsterActivityComponent2DAI : MonsterActivityComponent
+    {
+        protected override bool OverlappedEntity<T>(T entity, Vector3 measuringPosition, Vector3 targetPosition, float distance)
+        {
+            // Must reached end of path before doing an actions
+            return base.OverlappedEntity(entity, measuringPosition, targetPosition, distance) && (CacheEntity.Movement as AstarCharacterMovement2D).reachedEndOfPath;
+        }
+    }
 }
