@@ -9,17 +9,17 @@ namespace MultiplayerARPG
     public class AstarCharacterMovement2D : RigidBodyEntityMovement2D
     {
         public IAstarAI CacheAIPath { get; private set; }
-        protected bool remoteReachedDestination = true;
-        protected bool previousReachedDestination;
+        public Seeker Seeker { get; private set; }
+        protected bool remoteReachedEndOfPath = true;
 
-        public bool ReachedDestination
+        public bool reachedEndOfPath
         {
             get
             {
                 if ((CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
                     (CacheEntity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient))
-                    return CacheAIPath.remainingDistance < 0.05f;
-                return remoteReachedDestination;
+                    return CacheAIPath.reachedEndOfPath;
+                return remoteReachedEndOfPath;
             }
         }
 
@@ -32,36 +32,35 @@ namespace MultiplayerARPG
                 CacheAIPath = gameObject.AddComponent<AILerp>();
                 (CacheAIPath as AILerp).enableRotation = false;
             }
+            Seeker = GetComponent<Seeker>();
         }
 
         public override void EntityOnSetup()
         {
             base.EntityOnSetup();
-            CacheEntity.RegisterNetFunction<bool>(NetFuncSetReachedDestination);
+            CacheEntity.RegisterNetFunction<bool>(NetFuncSetReachedEndOfPath);
             CacheNetTransform.onTeleport = (position, rotation) =>
             {
                 CacheAIPath.Teleport(position);
             };
         }
 
-        protected void NetFuncSetReachedDestination(bool reachedDestination)
+        protected void NetFuncSetReachedEndOfPath(bool reachedEndOfPath)
         {
-            remoteReachedDestination = reachedDestination;
+            remoteReachedEndOfPath = reachedEndOfPath;
         }
 
         public override void EntityUpdate()
         {
-            if (CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+            if ((CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer) ||
+                    (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient))
             {
                 (CacheAIPath as MonoBehaviour).enabled = false;
                 return;
             }
 
-            if (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
-            {
-                (CacheAIPath as MonoBehaviour).enabled = false;
-                return;
-            }
+            // Update reached end of path state
+            CacheEntity.CallNetFunction(NetFuncSetReachedEndOfPath, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
 
             (CacheAIPath as MonoBehaviour).enabled = true;
 
@@ -69,13 +68,6 @@ namespace MultiplayerARPG
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
             CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
-        }
-
-        public override void StopMove()
-        {
-            base.StopMove();
-            if (CacheAIPath != null)
-                CacheAIPath.isStopped = true;
         }
 
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
@@ -103,13 +95,6 @@ namespace MultiplayerARPG
                 CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
 
             CacheEntity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
-
-            bool reachedDestination = CacheAIPath.remainingDistance < 0.05f;
-            if (previousReachedDestination != reachedDestination)
-            {
-                CacheEntity.CallNetFunction(NetFuncSetReachedDestination, FunctionReceivers.All, reachedDestination);
-                previousReachedDestination = reachedDestination;
-            }
         }
 
         public override void SetLookRotation(Quaternion rotation)

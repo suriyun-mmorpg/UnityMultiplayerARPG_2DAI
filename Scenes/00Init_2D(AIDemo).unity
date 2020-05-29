@@ -631,10 +631,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca66ed5b09dc41447ad7cf901faa5e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  umaAvatarDatabase: {fileID: 0}
   dimensionType: 1
   saveSystem: {fileID: 0}
   gameplayRule: {fileID: 11400000, guid: 3bfe680a81b27ce4ba9642ddff7baa17, type: 2}
+  gmCommands: {fileID: 0}
   networkSetting: {fileID: 11400000, guid: c0825e8ee894749459ab4c8dda26dfe6, type: 2}
   itemDropEntityPrefab: {fileID: 114136267996948458, guid: 9c6362fe52a2dfa40b90aba5530a6fda,
     type: 2}
@@ -644,7 +644,7 @@ MonoBehaviour:
     type: 2}
   uiSceneGameplayMobilePrefab: {fileID: 114630585920460692, guid: 70474cf4f9f686c45b0305621722205f,
     type: 2}
-  defaultControllerPrefab: {fileID: 114072456199855828, guid: 9b0dda0d289a10c40ba6b4f2444b5b0e,
+  defaultControllerPrefab: {fileID: 114618904563953218, guid: b75499d99bfb48342b9c100e61058694,
     type: 2}
   serverCharacterPrefab: {fileID: 114801908678275750, guid: 421d789af0533a74fb6efc3521d9f8b7,
     type: 2}
@@ -870,12 +870,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolumeSetting:
     id: MASTER
+    maxVolumeRate: 1
   bgmVolumeSetting:
     id: BGM
+    maxVolumeRate: 1
   sfxVolumeSetting:
     id: SFX
+    maxVolumeRate: 1
   ambientVolumeSetting:
     id: AMBIENT
+    maxVolumeRate: 1
   otherVolumeSettings: []
 --- !u!114 &1379718508
 MonoBehaviour:
