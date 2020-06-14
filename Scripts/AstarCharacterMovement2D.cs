@@ -35,10 +35,10 @@ namespace MultiplayerARPG
             Seeker = GetComponent<Seeker>();
         }
 
-        public override void EntityOnSetup()
+        public override void OnSetup()
         {
-            base.EntityOnSetup();
-            CacheEntity.RegisterNetFunction<bool>(NetFuncSetReachedEndOfPath);
+            base.OnSetup();
+            RegisterNetFunction<bool>(NetFuncSetReachedEndOfPath);
             CacheNetTransform.onTeleport = (position, rotation) =>
             {
                 CacheAIPath.Teleport(position);
@@ -60,7 +60,7 @@ namespace MultiplayerARPG
             }
 
             // Update reached end of path state
-            CacheEntity.CallNetFunction(NetFuncSetReachedEndOfPath, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
+            CallNetFunction(NetFuncSetReachedEndOfPath, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
 
             (CacheAIPath as MonoBehaviour).enabled = true;
 
