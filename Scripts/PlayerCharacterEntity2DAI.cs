@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using LiteNetLibManager;
 
 namespace MultiplayerARPG
 {
@@ -13,7 +13,7 @@ namespace MultiplayerARPG
         {
             base.InitialRequiredComponents();
             if (Movement == null)
-                Debug.LogError("[" + ToString() + "] Did not setup entity movement component to this entity.");
+                Logging.LogError("[" + ToString() + "] Did not setup entity movement component to this entity.");
         }
     }
 }
