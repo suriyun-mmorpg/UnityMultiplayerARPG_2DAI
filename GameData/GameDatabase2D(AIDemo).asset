@@ -4,18 +4,27 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 446bd54be72e9c14a9d92aae35e50af7, type: 3}
   m_Name: GameDatabase2D(AIDemo)
   m_EditorClassIdentifier: 
+  playerCharacterEntities:
+  - {fileID: 114249800215842032, guid: 56f22f496232a2640ba37e25b1ccacd8, type: 3}
+  - {fileID: 114249800215842032, guid: 44bb136d7bf6d554eb32b36c9d0e19d3, type: 3}
+  monsterCharacterEntities:
+  - {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 3}
+  vehicleEntities: []
   attributes:
   - {fileID: 11400000, guid: 0e223af20738b88419c22a1a0401a21b, type: 2}
   - {fileID: 11400000, guid: cf50e3647cfae0e44b683163d2171277, type: 2}
   - {fileID: 11400000, guid: c7e3824f99bb4bc43b9566210f8d02f5, type: 2}
   - {fileID: 11400000, guid: cd3d2fb4f3c67fd4dbba3bd0ccd0095e, type: 2}
+  currencies:
+  - {fileID: 11400000, guid: 02d40019f7430f0459286df57e6b450b, type: 2}
   items:
   - {fileID: 11400000, guid: 0caf4971c0b182947929728a15827506, type: 2}
   - {fileID: 11400000, guid: 92590ae44dc681048807c2d146bb6e49, type: 2}
@@ -31,12 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d3ed0354e5601ff4cbb18cd2e9917efc, type: 2}
   - {fileID: 11400000, guid: 29dccae3bff9e58479ff3ee42064cc7a, type: 2}
   guildSkills: []
-  playerCharacterEntities:
-  - {fileID: 114249800215842032, guid: 56f22f496232a2640ba37e25b1ccacd8, type: 2}
-  - {fileID: 114249800215842032, guid: 44bb136d7bf6d554eb32b36c9d0e19d3, type: 2}
-  monsterCharacterEntities:
-  - {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 2}
-  vehicleEntities: []
   mapInfos:
   - {fileID: 11400000, guid: 55030227750854647bdff113f1960462, type: 2}
+  quests: []
   factions: []
