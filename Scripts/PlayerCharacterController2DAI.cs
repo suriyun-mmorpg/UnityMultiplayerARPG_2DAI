@@ -71,7 +71,7 @@ namespace MultiplayerARPG
             for (int i = 0; i < _p.path.Count; ++i)
             {
                 nodePosition = (Vector3)_p.path[i].position;
-                if (base.OverlappedEntity(TargetEntity, nodePosition + measuringPositionOffsets, expectTargetPosition, expectTargetDistance))
+                if (Vector3.Distance(nodePosition + measuringPositionOffsets, expectTargetPosition) <= expectTargetDistance)
                 {
                     destination = null;
                     PlayerCharacterEntity.PointClickMovement(nodePosition);
