@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Pathfinding;
 using LiteNetLibManager;
 
@@ -89,6 +87,11 @@ namespace MultiplayerARPG
                 // Set destination to AI Path
                 CacheAIPath.isStopped = false;
                 CacheAIPath.destination = currentDestination.Value;
+            }
+            else
+            {
+                // Character dead?
+                CacheAIPath.isStopped = true;
             }
 
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
