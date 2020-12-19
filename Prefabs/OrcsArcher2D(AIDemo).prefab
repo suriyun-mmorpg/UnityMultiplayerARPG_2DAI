@@ -876,8 +876,8 @@ MonoBehaviour:
   behaviourIndex: 0
   sendOptions: 0
   sendInterval: 0.1
-  randomWanderDelayMin: 2
-  randomWanderDelayMax: 5
+  randomWanderDelayMin: 10
+  randomWanderDelayMax: 15
   randomWanderDistance: 2
   findEnemyDelay: 1
   followTargetDuration: 5
