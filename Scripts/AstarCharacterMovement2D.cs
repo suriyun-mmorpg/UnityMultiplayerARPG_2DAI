@@ -14,8 +14,8 @@ namespace MultiplayerARPG
         {
             get
             {
-                if ((CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
-                    (CacheEntity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient))
+                if ((Entity.MovementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
+                    (Entity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient))
                     return CacheAIPath.reachedEndOfPath;
                 return remoteReachedEndOfPath;
             }
@@ -50,8 +50,8 @@ namespace MultiplayerARPG
 
         public override void EntityUpdate()
         {
-            if ((CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer) ||
-                    (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient))
+            if ((Entity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer) ||
+                    (Entity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient))
             {
                 (CacheAIPath as MonoBehaviour).enabled = false;
                 return;
@@ -65,7 +65,7 @@ namespace MultiplayerARPG
             // Force set AILerp settings
             CacheAIPath.canMove = true;
             CacheAIPath.canSearch = true;
-            CacheAIPath.maxSpeed = CacheEntity.GetMoveSpeed();
+            CacheAIPath.maxSpeed = Entity.GetMoveSpeed();
         }
 
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
@@ -76,13 +76,13 @@ namespace MultiplayerARPG
 
         public override void EntityFixedUpdate()
         {
-            if (CacheEntity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
+            if (Entity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
                 return;
 
-            if (CacheEntity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
+            if (Entity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
                 return;
 
-            if (currentDestination.HasValue && CacheEntity.CanMove())
+            if (currentDestination.HasValue && Entity.CanMove())
             {
                 // Set destination to AI Path
                 CacheAIPath.isStopped = false;
@@ -95,9 +95,9 @@ namespace MultiplayerARPG
             }
 
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
-                CacheEntity.SetDirection2D(CacheAIPath.velocity.normalized);
+                Entity.SetDirection2D(CacheAIPath.velocity.normalized);
 
-            CacheEntity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
+            Entity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
         }
 
         public override void SetLookRotation(Quaternion rotation)
