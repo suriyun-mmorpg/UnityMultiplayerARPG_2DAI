@@ -37,10 +37,6 @@ namespace MultiplayerARPG
         {
             base.OnSetup();
             RegisterNetFunction<bool>(NetFuncSetReachedEndOfPath);
-            CacheNetTransform.onTeleport = (position, rotation) =>
-            {
-                CacheAIPath.Teleport(position);
-            };
         }
 
         protected void NetFuncSetReachedEndOfPath(bool reachedEndOfPath)
@@ -104,6 +100,12 @@ namespace MultiplayerARPG
         {
             if (CacheAIPath.velocity.sqrMagnitude == 0f)
                 base.SetLookRotation(rotation);
+        }
+
+        protected override void OnTeleport(Vector2 position)
+        {
+            base.OnTeleport(position);
+            CacheAIPath.Teleport(position);
         }
     }
 }
