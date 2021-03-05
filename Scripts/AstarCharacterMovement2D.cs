@@ -46,17 +46,8 @@ namespace MultiplayerARPG
 
         public override void EntityUpdate()
         {
-            if ((Entity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer) ||
-                    (Entity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient))
-            {
-                (CacheAIPath as MonoBehaviour).enabled = false;
-                return;
-            }
-
             // Update reached end of path state
             CallNetFunction(NetFuncSetReachedEndOfPath, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
-
-            (CacheAIPath as MonoBehaviour).enabled = true;
 
             // Force set AILerp settings
             CacheAIPath.canMove = true;
@@ -66,18 +57,13 @@ namespace MultiplayerARPG
 
         public override void KeyMovement(Vector3 moveDirection, MovementState movementState)
         {
-            if (moveDirection.sqrMagnitude > 0.25f)
-                PointClickMovement(CacheTransform.position + moveDirection);
+            if (moveDirection.sqrMagnitude <= 0.25f)
+                return;
+            PointClickMovement(CacheTransform.position + moveDirection);
         }
 
         public override void EntityFixedUpdate()
         {
-            if (Entity.MovementSecure == MovementSecure.ServerAuthoritative && !IsServer)
-                return;
-
-            if (Entity.MovementSecure == MovementSecure.NotSecure && !IsOwnerClient)
-                return;
-
             if (currentDestination.HasValue && Entity.CanMove())
             {
                 // Set destination to AI Path
@@ -89,17 +75,17 @@ namespace MultiplayerARPG
                 // Character dead?
                 CacheAIPath.isStopped = true;
             }
-
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
                 Entity.SetDirection2D(CacheAIPath.velocity.normalized);
-
             Entity.SetMovement(CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None);
+            SyncTransform();
         }
 
         public override void SetLookRotation(Quaternion rotation)
         {
-            if (CacheAIPath.velocity.sqrMagnitude == 0f)
-                base.SetLookRotation(rotation);
+            if (CacheAIPath.velocity.sqrMagnitude > 0f)
+                return;
+            base.SetLookRotation(rotation);
         }
 
         protected override void OnTeleport(Vector2 position)
