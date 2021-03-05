@@ -320,7 +320,6 @@ GameObject:
   - component: {fileID: 114424167947571634}
   - component: {fileID: 50570960513815026}
   - component: {fileID: 114790097988843690}
-  - component: {fileID: 114425528508677646}
   - component: {fileID: 114962839084613726}
   - component: {fileID: 114383526974588364}
   - component: {fileID: 61765155898490682}
@@ -513,35 +512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 
   objectId: 0
-  subscriberIds: 
---- !u!114 &114425528508677646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777251013356746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8631d361478af9d4895c657221a7b4b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviourIndex: 0
-  sendOptions: 0
-  sendInterval: 0.1
-  syncingTransform: {fileID: 0}
-  ownerClientCanSendTransform: 0
-  ownerClientNotInterpolate: 0
-  ownerClientSendInterval: 0.01
-  snapThreshold: 5
-  movementTheshold: 0.075
-  rotateTheshold: 1
-  syncPositionX: 0
-  syncPositionY: 0
-  syncPositionZ: 1
-  syncRotationX: 1
-  syncRotationY: 1
-  syncRotationZ: 1
 --- !u!114 &114962839084613726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +898,10 @@ MonoBehaviour:
   sendOptions: 0
   sendInterval: 0.1
   stoppingDistance: 0.1
+  moveThreshold: 0.01
+  snapThreshold: 5
+  clientSyncTransformInterval: 0.05
+  serverSyncTransformInterval: 0.05
 --- !u!114 &114423900364055418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,11 +957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e90d66c02169f4e9d03f0cb903566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourIndex: 0
-  sendOptions: 0
-  sendInterval: 0.1
   range: 80
   updateInterval: 1
+  movementTheshold: 1
 --- !u!1 &1942677502544580
 GameObject:
   m_ObjectHideFlags: 0
