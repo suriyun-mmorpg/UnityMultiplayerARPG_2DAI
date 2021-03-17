@@ -47,7 +47,7 @@ namespace MultiplayerARPG
         public override void EntityUpdate()
         {
             // Update reached end of path state
-            CallNetFunction(NetFuncSetReachedEndOfPath, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
+            CallNetFunction(NetFuncSetReachedEndOfPath, 0, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
 
             // Force set AILerp settings
             CacheAIPath.canMove = true;
