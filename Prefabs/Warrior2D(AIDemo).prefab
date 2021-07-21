@@ -60,7 +60,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212720684570947580
 SpriteRenderer:
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: -737121915
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300158, guid: 73f45019b62e43e4a953e0998797cad1, type: 3}
+  m_Sprite: {fileID: 21300162, guid: 73f45019b62e43e4a953e0998797cad1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 114373457388471766}
   - component: {fileID: 114019986012758338}
   - component: {fileID: -4578968687024340907}
+  - component: {fileID: 7172306550389280077}
   m_Layer: 0
   m_Name: Warrior2D(AIDemo)
   m_TagString: Untagged
@@ -164,6 +165,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4532387271618742}
+  - {fileID: 1258107022237406637}
   - {fileID: 4956304626148802}
   - {fileID: 4220959519723220}
   - {fileID: 4671642203397944}
@@ -189,7 +191,7 @@ MonoBehaviour:
   hiddingRenderers: []
   fpsHiddingObjects: []
   fpsHiddingRenderers: []
-  genericAudioSource: {fileID: 0}
+  genericAudioSource: {fileID: 7172306550389280077}
   effectContainers:
   - effectSocket: Floor
     transform: {fileID: 4325415483086858}
@@ -197,6 +199,8 @@ MonoBehaviour:
     transform: {fileID: 4220959519723220}
   setEffectContainersBySetters: 0
   modelManager: {fileID: 114019986012758338}
+  activateObjectsWhenSwitchModel: []
+  deactivateObjectsWhenSwitchModel: []
   equipmentContainers: []
   setEquipmentContainersBySetters: 0
   deactivateInstantiatedObjects: 0
@@ -381,6 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetId: 
   objectId: 0
+  visibleRange: 0
+  alwaysVisible: 0
 --- !u!114 &114476148159814128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,9 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69745e3d4eccf94bb5c64b2011ec1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourIndex: 0
-  sendOptions: 0
-  sendInterval: 0.1
 --- !u!114 &114452757523037018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,9 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f29b9cf2a5bb44c93ee7645834d9fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourIndex: 0
-  sendOptions: 0
-  sendInterval: 0.1
 --- !u!61 &61962034507740752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourIndex: 0
+  dataChannel: 0
   sendOptions: 0
   sendInterval: 0.1
   textTitle: {fileID: 0}
@@ -459,21 +460,29 @@ MonoBehaviour:
   syncTitle:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 
   syncTitleB:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 
+  entityTitle: AIPath
+  entityTitles: []
   model: {fileID: 114902627479170308}
   cameraTargetTransform: {fileID: 0}
   fpsCameraTargetTransform: {fileID: 0}
@@ -481,37 +490,49 @@ MonoBehaviour:
   movementState:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
     alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 1
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   extraMovementState:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
     alwaysSync: 1
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 1
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   direction2D:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 1
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
   passengingVehicle:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value:
       objectId: 0
       seatIndex: 0
@@ -519,6 +540,7 @@ MonoBehaviour:
   canBackwardSprint: 0
   combatTextTransform: {fileID: 4532387271618742}
   opponentAimTransform: {fileID: 0}
+  isStaticHitBoxes: 0
   onNormalDamageHit:
     m_PersistentCalls:
       m_Calls: []
@@ -531,20 +553,35 @@ MonoBehaviour:
   onDamageMissed:
     m_PersistentCalls:
       m_Calls: []
-  currentHp:
+  isImmune:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
-  meleeDamageTransform: {fileID: 4956304626148802}
+  currentHp:
+    behaviour: {fileID: 0}
+    elementId: 0
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: 0
+  meleeDamageTransform: {fileID: 1258107022237406637}
   missileDamageTransform: {fileID: 4956304626148802}
-  characterUITransform: {fileID: 4122315194440306}
-  miniMapUITransform: {fileID: 4407621456926014}
-  debugFovColor: {r: 0, g: 1, b: 0, a: 0.04}
+  characterUiTransform: {fileID: 4122315194440306}
+  miniMapUiTransform: {fileID: 4407621456926014}
+  debugDamageLaunchingColor: {r: 0, g: 1, b: 0, a: 0.04}
   race: {fileID: 0}
   onDead:
     m_PersistentCalls:
@@ -558,267 +595,337 @@ MonoBehaviour:
   id:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 
   level:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   exp:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   currentMp:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   currentStamina:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 0
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 0
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   currentFood:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   currentWater:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   equipWeaponSet:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   pitch:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 2
+    dataChannel: 0
+    deliveryMethod: 1
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   targetEntityId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 2
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   selectableWeaponSets:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 0
   attributes:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 0
   skills:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 0
   skillUsages:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
   buffs:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 0
   equipItems:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 0
   nonEquipItems:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
   summons:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
-  characterTitle: AIPath
-  characterTitles: []
   characterDatabases:
   - {fileID: 11400000, guid: df4b0a5cc68c15a4090f0dc937a52246, type: 2}
   controllerPrefab: {fileID: 0}
   dataId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   factionId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   statPoint:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   skillPoint:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   gold:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   userGold:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   userCash:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   partyId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   guildId:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 0
   respawnMapName:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
-    syncMode: 0
+    syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 2
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
     value: 
   respawnPosition:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    value: {x: 0, y: 0, z: 0}
-  isWarping:
-    behaviour: {fileID: 0}
-    elementId: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
-    value: 0
-  hasAimPosition:
-    behaviour: {fileID: 0}
-    elementId: 0
+    dataChannel: 0
     deliveryMethod: 2
     sendInterval: 0.1
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 2
-    value: 0
-  aimPosition:
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: {x: 0, y: 0, z: 0}
+    valueChangeDistance: 0.01
+  lastDeadTime:
     behaviour: {fileID: 0}
     elementId: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
-    syncMode: 2
-    value: {x: 0, y: 0, z: 0}
+    syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 1
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: 0
+  isWarping:
+    behaviour: {fileID: 0}
+    elementId: 0
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 1
+    dataChannel: 0
+    deliveryMethod: 4
+    sendInterval: 0.1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: 0
   hotkeys:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
   quests:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
   currencies:
     behaviour: {fileID: 0}
     elementId: 0
+    dataChannel: 0
     forOwnerOnly: 1
 --- !u!114 &114757329484041034
 MonoBehaviour:
@@ -897,12 +1004,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourIndex: 0
+  dataChannel: 0
   sendOptions: 0
   sendInterval: 0.1
   stoppingDistance: 0.1
   moveThreshold: 0.01
   snapThreshold: 5
   clientSyncTransformInterval: 0.05
+  clientSendInputsInterval: 0.05
   serverSyncTransformInterval: 0.05
 --- !u!114 &114019986012758338
 MonoBehaviour:
@@ -916,9 +1025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a250dc50d53944b80c6628ab2509d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourIndex: 0
-  sendOptions: 0
-  sendInterval: 0.1
   mainModel: {fileID: 114902627479170308}
   fpsModelPrefab: {fileID: 0}
   fpsModelPositionOffsets: {x: 0, y: 0, z: 0}
@@ -936,9 +1042,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e90d66c02169f4e9d03f0cb903566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 80
-  updateInterval: 1
-  movementTheshold: 1
+--- !u!82 &7172306550389280077
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329702655160078}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1346744282058020
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +1166,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430514012346332
 GameObject:
@@ -997,7 +1196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1686995605799852
 GameObject:
@@ -1027,7 +1226,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774080209636258
 GameObject:
@@ -1057,7 +1256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900287475814436
 GameObject:
@@ -1089,7 +1288,7 @@ Transform:
   m_LocalScale: {x: 0.35, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4325415483086858}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212518276303429152
 SpriteRenderer:
@@ -1153,3 +1352,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44d5853016663a4b9be1f277173d689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6056890285577752415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1258107022237406637}
+  m_Layer: 0
+  m_Name: MeleeDamage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1258107022237406637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6056890285577752415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4325415483086858}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
