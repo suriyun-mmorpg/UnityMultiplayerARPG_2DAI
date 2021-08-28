@@ -27,8 +27,10 @@ namespace MultiplayerARPG
             CacheAIPath = GetComponent<IAstarAI>();
             if (CacheAIPath == null)
             {
-                CacheAIPath = gameObject.AddComponent<AILerp>();
-                (CacheAIPath as AILerp).enableRotation = false;
+                AILerp newPathComp = gameObject.AddComponent<AILerp>();
+                newPathComp.orientation = OrientationMode.YAxisForward;
+                newPathComp.enableRotation = false;
+                CacheAIPath = newPathComp;
             }
             Seeker = GetComponent<Seeker>();
         }
