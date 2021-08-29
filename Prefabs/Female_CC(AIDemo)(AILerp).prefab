@@ -233,10 +233,10 @@ GameObject:
   - component: {fileID: -993670813398864682}
   - component: {fileID: 4749516218869967580}
   - component: {fileID: -2794859739207121637}
-  - component: {fileID: -1634275826070637552}
   - component: {fileID: 7508644866785867936}
+  - component: {fileID: -477942962779523005}
   m_Layer: 8
-  m_Name: Female_CC(AIDemo)
+  m_Name: Female_CC(AIDemo)(AILerp)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56367cc2ed44f1e49835e9c247771fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetId: 54c9dac127e87fa45ac1e2da13ba0d02
+  assetId: a0c8d5f60e1b4194d8cbec45bf4bf8a7
   objectId: 0
   visibleRange: 0
   alwaysVisible: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   dataChannel: 0
   sendOptions: 0
   sendInterval: 0.01
-  entityTitle: Female (AIPath)
+  entityTitle: Female (AILerp)
   entityTitles: []
   syncTitle:
     behaviour: {fileID: 0}
@@ -4282,42 +4282,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &-1634275826070637552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374512570995471523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.1
-  height: 0.5
-  repathRate: 0.1
-  canSearch: 1
-  canMove: 1
-  maxSpeed: 24
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 0
-  enableRotation: 1
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 800
-  slowdownDistance: 0
-  pickNextWaypointDist: 5
-  endReachedDistance: 0.1
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 0
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
 --- !u!114 &7508644866785867936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,6 +4304,29 @@ MonoBehaviour:
   clientSyncTransformInterval: 0.05
   clientSendInputsInterval: 0.05
   serverSyncTransformInterval: 0.05
+--- !u!114 &-477942962779523005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374512570995471523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  repathRate: 0.1
+  canSearch: 1
+  canMove: 1
+  speed: 3
+  orientation: 0
+  enableRotation: 1
+  rotationSpeed: 800
+  interpolatePathSwitches: 1
+  switchPathInterpolationSpeed: 5
+  targetCompatibility: {fileID: 0}
 --- !u!1 &374512570995471535
 GameObject:
   m_ObjectHideFlags: 0

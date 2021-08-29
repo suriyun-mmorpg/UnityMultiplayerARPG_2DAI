@@ -570,7 +570,7 @@ MonoBehaviour:
   dataChannel: 0
   sendOptions: 0
   sendInterval: 0.01
-  entityTitle: Male (CC)
+  entityTitle: Male (AIPath)
   entityTitles: []
   syncTitle:
     behaviour: {fileID: 0}

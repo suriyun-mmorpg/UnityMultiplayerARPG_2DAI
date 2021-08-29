@@ -15,6 +15,8 @@ MonoBehaviour:
   playerCharacterEntities:
   - {fileID: 128530181839780742, guid: f03dfcd4246648f408bba6418ef945d5, type: 3}
   - {fileID: 374512570995460594, guid: 54c9dac127e87fa45ac1e2da13ba0d02, type: 3}
+  - {fileID: 128530181839780742, guid: f72046b7c01eaff45b767d796a233807, type: 3}
+  - {fileID: 374512570995460594, guid: a0c8d5f60e1b4194d8cbec45bf4bf8a7, type: 3}
   monsterCharacterEntities:
   - {fileID: 114107677553822186, guid: 8621b6be1b286a641862897d4d13231e, type: 3}
   - {fileID: 114313543944479198, guid: 3ce05da8194ba16479d8cf2f0a695adb, type: 3}
