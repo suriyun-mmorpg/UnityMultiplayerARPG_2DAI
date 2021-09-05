@@ -79,7 +79,15 @@ namespace MultiplayerARPG
             }
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
                 Entity.SetDirection2D(CacheAIPath.velocity.normalized);
-            MovementState = CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None;
+            if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
+            {
+                // Update movement state
+                MovementState = (CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
+                // Update extra movement state
+                tempExtraMovementState = CacheAIPath.velocity.sqrMagnitude > 0 ? tempExtraMovementState : ExtraMovementState.None;
+                tempExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
+                ExtraMovementState = tempExtraMovementState;
+            }
             SyncTransform();
         }
 

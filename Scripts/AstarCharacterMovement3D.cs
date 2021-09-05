@@ -30,16 +30,16 @@ namespace MultiplayerARPG
         [Range(0.00825f, 0.1f)]
         public float serverSyncTransformInterval = 0.05f;
 
-        private long acceptedPositionTimestamp;
-        private float lastServerSyncTransform;
-        private float lastClientSyncTransform;
-        private float lastClientSendInputs;
-        private float? targetYRotation;
-        private float yRotateLerpTime;
-        private float yRotateLerpDuration;
-        private EntityMovementInput oldInput;
-        private EntityMovementInput currentInput;
-        private ExtraMovementState tempExtraMovementState;
+        protected long acceptedPositionTimestamp;
+        protected float lastServerSyncTransform;
+        protected float lastClientSyncTransform;
+        protected float lastClientSendInputs;
+        protected float? targetYRotation;
+        protected float yRotateLerpTime;
+        protected float yRotateLerpDuration;
+        protected EntityMovementInput oldInput;
+        protected EntityMovementInput currentInput;
+        protected ExtraMovementState tempExtraMovementState;
 
         public override void EntityAwake()
         {
@@ -151,11 +151,15 @@ namespace MultiplayerARPG
 
         public override void EntityFixedUpdate()
         {
-            MovementState = (CacheAIPath.velocity.sqrMagnitude > 0.25f ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
-            // Update extra movement state
-            tempExtraMovementState = CacheAIPath.velocity.sqrMagnitude > 0.25f ? tempExtraMovementState : ExtraMovementState.None;
-            tempExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
-            ExtraMovementState = tempExtraMovementState;
+            if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
+            {
+                // Update movement state
+                MovementState = (CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
+                // Update extra movement state
+                tempExtraMovementState = CacheAIPath.velocity.sqrMagnitude > 0 ? tempExtraMovementState : ExtraMovementState.None;
+                tempExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
+                ExtraMovementState = tempExtraMovementState;
+            }
             SyncTransform();
         }
 
@@ -176,6 +180,7 @@ namespace MultiplayerARPG
                 InputState inputState;
                 if (currentTime - lastClientSendInputs > clientSendInputsInterval && this.DifferInputEnoughToSend(oldInput, currentInput, out inputState))
                 {
+                    currentInput = this.SetInputMovementState(currentInput, MovementState);
                     currentInput = this.SetInputExtraMovementState(currentInput, tempExtraMovementState);
                     this.ClientSendMovementInput3D(inputState, currentInput.MovementState, currentInput.ExtraMovementState, currentInput.Position, currentInput.Rotation);
                     oldInput = currentInput;
