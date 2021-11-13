@@ -156,11 +156,21 @@ MonoBehaviour:
   networkAddress: localhost
   networkPort: 7770
   useWebSocket: 0
+  webSocketSecure: 0
+  webSocketCertificateFilePath: 
+  webSocketCertificatePassword: 
   maxConnections: 4
   transportFactory: {fileID: 0}
   pingDuration: 1
   doNotEnterGameOnConnect: 0
   doNotDestroyOnSceneChanges: 0
+  auctionHouseMessageTypes:
+    createAuctionMsgType: 1300
+    bidMsgType: 1301
+    buyoutMsgType: 1302
+    getAccessTokenMsgType: 1303
+  auctionHouseServiceUrl: http://localhost:9800/auction-house
+  auctionHouseSecretKey: secret
   hitToSomeoneNotifyMessageId: 2001
   hitFromSomeoneNotifyMessageId: 2002
   killNotifyMessageId: 2000
@@ -212,6 +222,7 @@ MonoBehaviour:
   guildWarMailSenderName: Guild War Manager
   autoSaveDuration: 2
   startType: 0
+  selectedCharacterSummonBuffs: []
   selectedCharacterStorageItems: []
   enableGmCommands: 0
   writeAddonLog: 0
@@ -228,7 +239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultVisibleRange: 80
-  generateGridMode: 0
+  generateGridByRenderers: 1
+  generateGridByCollider3D: 0
+  generateGridByCollider2D: 0
+  generateGridByTerrain: 1
   axisMode: 0
   includeInactiveComponents: 1
   cellSize: 100
@@ -704,10 +718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca66ed5b09dc41447ad7cf901faa5e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnOnKillDrop: 0
-  killDropEquipItems: 1
-  killDropNonEquipItems: 1
-  corpsePrefab: {fileID: 0}
   dimensionType: 0
   saveSystem: {fileID: 0}
   gameplayRule: {fileID: 11400000, guid: 3bfe680a81b27ce4ba9642ddff7baa17, type: 2}
@@ -717,6 +727,10 @@ MonoBehaviour:
   itemDropEntityPrefab: {fileID: 114247390284341630, guid: 611b907cf80c87a4eb9e0d5d4a8688f5,
     type: 3}
   warpPortalEntityPrefab: {fileID: 114731892942428866, guid: 5773ff22c96e3ab4bb12d8202ec86244,
+    type: 3}
+  playerCorpsePrefab: {fileID: 9036829038788336466, guid: d98696903f1afa34fba36b435c7fb329,
+    type: 3}
+  monsterCorpsePrefab: {fileID: 9036829038788336466, guid: d98696903f1afa34fba36b435c7fb329,
     type: 3}
   uiSceneGameplayPrefab: {fileID: 114088817493988554, guid: 4af36d4bdf0cf07409f4412130b793ec,
     type: 3}
@@ -747,6 +761,9 @@ MonoBehaviour:
     type: 3}
   levelUpEffect: {fileID: 114843870614705530, guid: 6f6e255b4877f874c985ed9fb46293a1,
     type: 3}
+  stunEffects: []
+  muteEffects: []
+  freezeEffects: []
   expTree: 140000001e00000031000000490000006500000086000000aa000000d1000000fa000000270100005601000087010000bb010000f10100002902000064020000a0020000de0200001e0300005f030000a3030000e80300002f04000077040000c10400000d0500005a050000a9050000f90500004a0600009d060000f1060000470700009e070000f707000050080000ab0800000809000065090000c4090000240a0000850a0000e80a00004b0b0000b00b0000160c00007d0c0000e50c00004e0d0000b90d0000240e0000910e0000fe0e00006d0f0000dd0f00004d100000bf10000032110000a61100001b12000090120000071300007f130000f813000071140000ec14000068150000e415000062160000e01600005f170000e017000061180000e318000066190000ea1900006e1a0000f41a00007a1b0000021c00008a1c0000131d00009d1d0000281e0000b31e0000401f0000cd1f00005b200000ea200000792100000a2200009b2200002d230000c023000054240000e82400007e25000014260000aa26000042270000
   gameDatabase: {fileID: 11400000, guid: 84c38fc3d4e1362468e475b7eab6d534, type: 2}
   npcDatabase: {fileID: 11400000, guid: dae14f7f7d125fc4096ba7ac1f68d581, type: 2}
@@ -790,6 +807,9 @@ MonoBehaviour:
   combatTextDistance: 20
   maxEquipWeaponSet: 2
   currentPositionSaveMode: 0
+  playerDropItemMode: 0
+  playerDeadDropItemMode: 0
+  monsterDeadDropItemMode: 0
   dismantleFilter:
     includeJunk: 0
     includeArmor: 1
@@ -806,6 +826,7 @@ MonoBehaviour:
   canDismantleItemByPlayer: 0
   canRepairItemByPlayer: 0
   inventorySystem: 1
+  doNotFillEmptySlots: 0
   baseSlotLimit: 60
   playerStorage:
     weightLimit: 0
@@ -900,6 +921,7 @@ MonoBehaviour:
     keyCode: 106
   - keyName: RotateRight
     keyCode: 107
+  settingsSaveKeyPrefix: SETTING_KEY_BIND
 --- !u!114 &1379718505
 MonoBehaviour:
   m_ObjectHideFlags: 0
