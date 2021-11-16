@@ -61,15 +61,7 @@ namespace MultiplayerARPG
         {
             if (moveDirection.sqrMagnitude <= 0.25f)
                 return;
-            float nodeSize = 1;
-            AstarPath activePath = AstarPath.active;
-            if (activePath != null &&
-                activePath.data != null)
-            {
-                if (activePath.data.gridGraph != null)
-                    nodeSize = activePath.data.gridGraph.nodeSize;
-            }
-            PointClickMovement(CacheTransform.position + (moveDirection * nodeSize));
+            PointClickMovement(CacheTransform.position + moveDirection);
         }
 
         public override void EntityFixedUpdate()

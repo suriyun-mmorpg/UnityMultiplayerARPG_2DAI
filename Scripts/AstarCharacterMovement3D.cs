@@ -101,16 +101,8 @@ namespace MultiplayerARPG
             if (this.CanPredictMovement())
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
-                float nodeSize = 1;
-                AstarPath activePath = AstarPath.active;
-                if (activePath != null &&
-                    activePath.data != null)
-                {
-                    if (activePath.data.gridGraph != null)
-                        nodeSize = activePath.data.gridGraph.nodeSize;
-                }
-                SetMovePaths(CacheTransform.position + (moveDirection * nodeSize));
-                currentInput = this.SetInputPosition(currentInput, CacheTransform.position + (moveDirection * nodeSize));
+                SetMovePaths(CacheTransform.position + moveDirection);
+                currentInput = this.SetInputPosition(currentInput, CacheTransform.position + moveDirection);
                 currentInput = this.SetInputIsKeyMovement(currentInput, true);
             }
         }
