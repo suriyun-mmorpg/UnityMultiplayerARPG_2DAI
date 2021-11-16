@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: -737121915
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300162, guid: 73f45019b62e43e4a953e0998797cad1, type: 3}
+  m_Sprite: {fileID: 21300156, guid: 73f45019b62e43e4a953e0998797cad1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,6 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab0561f743b29941b9e3fed07578b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isIdAssigned: 0
+  id: 0
   hiddingObjects: []
   hiddingRenderers: []
   fpsHiddingObjects: []
@@ -198,9 +200,9 @@ MonoBehaviour:
   - effectSocket: Body
     transform: {fileID: 4220959519723220}
   setEffectContainersBySetters: 0
-  modelManager: {fileID: 114019986012758338}
   activateObjectsWhenSwitchModel: []
   deactivateObjectsWhenSwitchModel: []
+  vehicleModels: []
   equipmentContainers: []
   setEquipmentContainersBySetters: 0
   deactivateInstantiatedObjects: 0
@@ -347,7 +349,7 @@ MonoBehaviour:
       extraDuration: 0
       audioClips: []
   skillAnimations2D: []
-  sampleAnimation: 1
+  sampleAnimation: 0
   sampleDirection: 0
   sampleAlwaysLoop: 1
 --- !u!50 &50662022658265824
@@ -387,6 +389,8 @@ MonoBehaviour:
   objectId: 0
   visibleRange: 0
   alwaysVisible: 0
+  doNotDestroyWhenDisconnect: 0
+  poolingSize: 0
 --- !u!114 &114476148159814128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,19 +457,17 @@ MonoBehaviour:
   dataChannel: 0
   sendOptions: 0
   sendInterval: 0.1
-  textTitle: {fileID: 0}
-  textTitleB: {fileID: 0}
-  ownerObjects: []
-  nonOwnerObjects: []
+  entityTitle: AIPath
+  entityTitles: []
   syncTitle:
     behaviour: {fileID: 0}
     elementId: 0
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
@@ -475,51 +477,29 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
-  entityTitle: AIPath
-  entityTitles: []
+  ownerObjects: []
+  nonOwnerObjects: []
   model: {fileID: 114902627479170308}
   cameraTargetTransform: {fileID: 0}
   fpsCameraTargetTransform: {fileID: 0}
   movementSecure: 1
-  movementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 1
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value: 0
-  extraMovementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 1
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value: 0
+  canSideSprint: 0
+  canBackwardSprint: 0
   direction2D:
     behaviour: {fileID: 0}
     elementId: 0
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 1
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
   passengingVehicle:
@@ -528,16 +508,14 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 1
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value:
       objectId: 0
       seatIndex: 0
-  canSideSprint: 0
-  canBackwardSprint: 0
   combatTextTransform: {fileID: 4532387271618742}
   opponentAimTransform: {fileID: 0}
   isStaticHitBoxes: 0
@@ -559,9 +537,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -571,9 +549,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -598,9 +576,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
@@ -610,9 +588,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -622,9 +600,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -634,9 +612,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -646,9 +624,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 0
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -658,9 +636,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -670,9 +648,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -682,9 +660,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -694,9 +672,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 2
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 1
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -706,10 +684,10 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 2
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
-    clientDataChannel: 0
+    clientDataChannel: 1
     clientDeliveryMethod: 1
     value: 0
   selectableWeaponSets:
@@ -761,9 +739,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -773,9 +751,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -785,9 +763,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -797,9 +775,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -809,9 +787,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -821,9 +799,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -833,9 +811,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -845,9 +823,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -857,9 +835,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -869,9 +847,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
@@ -881,9 +859,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: {x: 0, y: 0, z: 0}
@@ -894,9 +872,21 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: 0
+  unmuteTime:
+    behaviour: {fileID: 0}
+    elementId: 0
+    alwaysSync: 0
+    doNotSyncInitialDataImmediately: 0
+    syncMode: 0
     sendInterval: 0.1
+    dataChannel: 0
+    deliveryMethod: 1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -906,9 +896,9 @@ MonoBehaviour:
     alwaysSync: 0
     doNotSyncInitialDataImmediately: 0
     syncMode: 1
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 4
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -1025,7 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a250dc50d53944b80c6628ab2509d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainModel: {fileID: 114902627479170308}
+  mainTpsModel: {fileID: 114902627479170308}
   fpsModelPrefab: {fileID: 0}
   fpsModelPositionOffsets: {x: 0, y: 0, z: 0}
   fpsModelRotationOffsets: {x: 0, y: 0, z: 0}
