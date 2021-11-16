@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Pathfinding;
-using System;
 
 namespace MultiplayerARPG
 {
@@ -11,10 +8,8 @@ namespace MultiplayerARPG
         AstarCharacterMovement2D movement;
         GameObject groundSeekerGameObject;
         Seeker groundSeeker;
-        AILerp groundAiLerp;
         GameObject entitySeekerGameObject;
         Seeker entitySeeker;
-        AILerp entityAiLerp;
         Vector3 measuringPositionOffsets;
         Vector3 expectTargetPosition;
         float expectTargetDistance;
@@ -28,18 +23,12 @@ namespace MultiplayerARPG
             groundSeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
             groundSeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
             groundSeeker.pathCallback += OnGroundPathComplete;
-            groundAiLerp = groundSeekerGameObject.AddComponent<AILerp>();
-            groundAiLerp.enableRotation = false;
-            groundAiLerp.speed = 1000f; // Move to target immediately
             // Entity seeker
             entitySeekerGameObject = new GameObject("_ControllerEntitySeeker");
             entitySeeker = entitySeekerGameObject.AddComponent<Seeker>();
             entitySeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
             entitySeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
             entitySeeker.pathCallback += OnEntityPathComplete;
-            entityAiLerp = entitySeekerGameObject.AddComponent<AILerp>();
-            entityAiLerp.enableRotation = false;
-            entityAiLerp.speed = 1000f; // Move to target immediately
         }
 
         protected override void OnDestroy()
