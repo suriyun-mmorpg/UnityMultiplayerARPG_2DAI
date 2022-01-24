@@ -19,6 +19,7 @@ namespace MultiplayerARPG
         }
         public MovementState MovementState { get; protected set; }
         public ExtraMovementState ExtraMovementState { get; protected set; }
+        public DirectionVector2 Direction2D { get { throw new System.NotImplementedException(); } set { throw new System.NotImplementedException(); } }
 
         [Header("Networking Settings")]
         public float moveThreshold = 0.01f;

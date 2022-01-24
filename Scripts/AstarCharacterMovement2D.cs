@@ -48,6 +48,8 @@ namespace MultiplayerARPG
 
         public override void EntityUpdate()
         {
+            UpdateMovement(Time.deltaTime);
+
             // Update reached end of path state
             CallNetFunction(NetFuncSetReachedEndOfPath, 0, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
 
@@ -64,7 +66,7 @@ namespace MultiplayerARPG
             PointClickMovement(CacheTransform.position + moveDirection);
         }
 
-        public override void EntityFixedUpdate()
+        protected override void UpdateMovement(float deltaTime)
         {
             if (HasNavPaths && Entity.CanMove())
             {
@@ -72,13 +74,22 @@ namespace MultiplayerARPG
                 CacheAIPath.isStopped = false;
                 CacheAIPath.destination = NavPaths.Peek();
             }
+            else if (clientTargetPosition.HasValue)
+            {
+                // Set destination to AI Path
+                CacheAIPath.isStopped = false;
+                CacheAIPath.destination = clientTargetPosition.Value;
+            }
             else
             {
                 // Character dead?
                 CacheAIPath.isStopped = true;
             }
+
+            // Change direction by move direction
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
-                Entity.SetDirection2D(CacheAIPath.velocity.normalized);
+                Direction2D = CacheAIPath.velocity.normalized;
+
             if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
             {
                 // Update movement state
@@ -86,7 +97,15 @@ namespace MultiplayerARPG
                 // Update extra movement state
                 ExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
             }
-            SyncTransform();
+
+            // Set inputs
+            if (CacheAIPath.velocity.sqrMagnitude > 0f)
+            {
+                currentInput = this.SetInputMovementState2D(currentInput, tempMovementState);
+                currentInput = this.SetInputPosition(currentInput, CacheAIPath.destination);
+                currentInput = this.SetInputIsKeyMovement(currentInput, false);
+            }
+            currentInput = this.SetInputDirection2D(currentInput, Direction2D);
         }
 
         public override void SetLookRotation(Quaternion rotation)
