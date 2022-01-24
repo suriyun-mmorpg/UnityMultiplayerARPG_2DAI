@@ -66,11 +66,11 @@ namespace MultiplayerARPG
 
         public override void EntityFixedUpdate()
         {
-            if (currentDestination.HasValue && Entity.CanMove())
+            if (HasNavPaths && Entity.CanMove())
             {
                 // Set destination to AI Path
                 CacheAIPath.isStopped = false;
-                CacheAIPath.destination = currentDestination.Value;
+                CacheAIPath.destination = NavPaths.Peek();
             }
             else
             {
