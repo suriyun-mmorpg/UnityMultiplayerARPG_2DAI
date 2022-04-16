@@ -1,4 +1,5 @@
-﻿using LiteNetLibManager;
+﻿using LiteNetLib.Utils;
+using LiteNetLibManager;
 using Pathfinding;
 using UnityEngine;
 
@@ -24,23 +25,15 @@ namespace MultiplayerARPG
         [Header("Networking Settings")]
         public float moveThreshold = 0.01f;
         public float snapThreshold = 5.0f;
-        [Range(0.00825f, 0.1f)]
-        public float clientSyncTransformInterval = 0.05f;
-        [Range(0.00825f, 0.1f)]
-        public float clientSendInputsInterval = 0.05f;
-        [Range(0.00825f, 0.1f)]
-        public float serverSyncTransformInterval = 0.05f;
 
         protected long acceptedPositionTimestamp;
-        protected float lastServerSyncTransform;
-        protected float lastClientSyncTransform;
-        protected float lastClientSendInputs;
         protected float? targetYRotation;
         protected float yRotateLerpTime;
         protected float yRotateLerpDuration;
         protected EntityMovementInput oldInput;
         protected EntityMovementInput currentInput;
         protected ExtraMovementState tempExtraMovementState;
+        protected bool isTeleporting;
 
         public override void EntityAwake()
         {
@@ -83,9 +76,8 @@ namespace MultiplayerARPG
                 Logging.LogWarning("CharacterControllerEntityMovement", "Teleport function shouldn't be called at client [" + name + "]");
                 return;
             }
-            this.ServerSendTeleport3D(position, rotation);
-            CacheTransform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
-            CacheAIPath.Teleport(position);
+            isTeleporting = true;
+            OnTeleport(position, rotation.eulerAngles.y);
         }
 
         public bool FindGroundedPosition(Vector3 fromPosition, float findDistance, out Vector3 result)
@@ -150,8 +142,15 @@ namespace MultiplayerARPG
             CacheAIPath.maxSpeed = Entity.GetMoveSpeed();
         }
 
-        public override void EntityFixedUpdate()
+        private void SetMovePaths(Vector3 position)
         {
+            CacheAIPath.isStopped = false;
+            CacheAIPath.destination = position;
+        }
+
+        public bool WriteClientState(NetDataWriter writer, out bool shouldSendReliably)
+        {
+            shouldSendReliably = false;
             if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
             {
                 // Update movement state
@@ -159,52 +158,60 @@ namespace MultiplayerARPG
                 // Update extra movement state
                 ExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
             }
-            SyncTransform();
-        }
-
-        private void SyncTransform()
-        {
-            float currentTime = Time.fixedTime;
             if (Entity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient && !IsServer)
             {
                 // Sync transform from owner client to server (except it's both owner client and server)
-                if (currentTime - lastClientSyncTransform > clientSyncTransformInterval)
-                {
-                    this.ClientSendSyncTransform3D();
-                    lastClientSyncTransform = currentTime;
-                }
+                this.ClientWriteSyncTransform3D(writer);
+                return true;
             }
             if (Entity.MovementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
             {
-                InputState inputState;
-                if (currentTime - lastClientSendInputs > clientSendInputsInterval && this.DifferInputEnoughToSend(oldInput, currentInput, out inputState))
+                EntityMovementInputState inputState;
+                if (this.DifferInputEnoughToSend(oldInput, currentInput, out inputState))
                 {
                     currentInput = this.SetInputMovementState(currentInput, MovementState);
                     currentInput = this.SetInputExtraMovementState(currentInput, tempExtraMovementState);
-                    this.ClientSendMovementInput3D(inputState, currentInput.MovementState, currentInput.ExtraMovementState, currentInput.Position, currentInput.Rotation);
+                    this.ClientWriteMovementInput3D(writer, inputState, currentInput.MovementState, currentInput.ExtraMovementState, currentInput.Position, currentInput.Rotation);
                     oldInput = currentInput;
                     currentInput = null;
-                    lastClientSendInputs = currentTime;
+                    return true;
                 }
             }
-            if (IsServer)
-            {
-                // Sync transform from server to all clients (include owner client)
-                if (currentTime - lastServerSyncTransform > serverSyncTransformInterval)
-                {
-                    this.ServerSendSyncTransform3D();
-                    lastServerSyncTransform = currentTime;
-                }
-            }
+            return false;
         }
 
-        private void SetMovePaths(Vector3 position)
+        public bool WriteServerState(NetDataWriter writer, out bool shouldSendReliably)
         {
-            CacheAIPath.isStopped = false;
-            CacheAIPath.destination = position;
+            shouldSendReliably = false;
+            if (isTeleporting)
+            {
+                shouldSendReliably = true;
+                MovementState |= MovementState.IsTeleport;
+            }
+            else
+            {
+                MovementState &= ~MovementState.IsTeleport;
+            }
+            // Sync transform from server to all clients (include owner client)
+            this.ServerWriteSyncTransform3D(writer);
+            isTeleporting = false;
+            return true;
         }
 
-        public void HandleSyncTransformAtClient(MessageHandlerData messageHandler)
+        public void ReadClientStateAtServer(NetDataReader reader)
+        {
+            switch (Entity.MovementSecure)
+            {
+                case MovementSecure.NotSecure:
+                    ReadSyncTransformAtServer(reader);
+                    break;
+                case MovementSecure.ServerAuthoritative:
+                    ReadMovementInputAtServer(reader);
+                    break;
+            }
+        }
+
+        public void ReadServerStateAtClient(NetDataReader reader)
         {
             if (IsServer)
             {
@@ -216,12 +223,16 @@ namespace MultiplayerARPG
             Vector3 position;
             float yAngle;
             long timestamp;
-            messageHandler.Reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
             if (acceptedPositionTimestamp < timestamp)
             {
                 acceptedPositionTimestamp = timestamp;
                 // Snap character to the position if character is too far from the position
-                if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
+                if (movementState.Has(MovementState.IsTeleport))
+                {
+                    OnTeleport(position, yAngle);
+                }
+                else if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
                 {
                     if (Entity.MovementSecure == MovementSecure.ServerAuthoritative || !IsOwnerClient)
                     {
@@ -235,7 +246,7 @@ namespace MultiplayerARPG
                 {
                     targetYRotation = yAngle;
                     yRotateLerpTime = 0;
-                    yRotateLerpDuration = serverSyncTransformInterval;
+                    yRotateLerpDuration = Time.fixedDeltaTime;
                     if (Vector3.Distance(position.GetXZ(), CacheTransform.position.GetXZ()) > moveThreshold)
                     {
                         SetMovePaths(position);
@@ -246,31 +257,7 @@ namespace MultiplayerARPG
             }
         }
 
-        public void HandleTeleportAtClient(MessageHandlerData messageHandler)
-        {
-            if (IsServer)
-            {
-                // Don't read and apply transform, because it was done (this is both owner client and server)
-                return;
-            }
-            Vector3 position;
-            float yAngle;
-            long timestamp;
-            messageHandler.Reader.ReadTeleportMessage3D(out position, out yAngle, out timestamp);
-            if (acceptedPositionTimestamp < timestamp)
-            {
-                acceptedPositionTimestamp = timestamp;
-                CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
-                CacheTransform.position = position;
-            }
-        }
-
-        public void HandleJumpAtClient(MessageHandlerData messageHandler)
-        {
-            // There is no jump for astar movement
-        }
-
-        public void HandleMovementInputAtServer(MessageHandlerData messageHandler)
+        public void ReadMovementInputAtServer(NetDataReader reader)
         {
             if (IsOwnerClient)
             {
@@ -284,38 +271,45 @@ namespace MultiplayerARPG
             }
             if (!Entity.CanMove())
                 return;
-            InputState inputState;
+            EntityMovementInputState inputState;
             MovementState movementState;
             ExtraMovementState extraMovementState;
             Vector3 position;
             float yAngle;
             long timestamp;
-            messageHandler.Reader.ReadMovementInputMessage3D(out inputState, out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadMovementInputMessage3D(out inputState, out movementState, out extraMovementState, out position, out yAngle, out timestamp);
             if (acceptedPositionTimestamp < timestamp)
             {
+                if (!inputState.Has(EntityMovementInputState.IsStopped))
+                {
+                    tempExtraMovementState = extraMovementState;
+                    if (inputState.Has(EntityMovementInputState.PositionChanged))
+                    {
+                        SetMovePaths(position);
+                    }
+                    if (inputState.Has(EntityMovementInputState.RotationChanged))
+                    {
+                        if (IsClient)
+                        {
+                            targetYRotation = yAngle;
+                            yRotateLerpTime = 0;
+                            yRotateLerpDuration = Time.fixedDeltaTime;
+                        }
+                        else
+                        {
+                            CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
+                        }
+                    }
+                }
+                else
+                {
+                    StopMoveFunction();
+                }
                 acceptedPositionTimestamp = timestamp;
-                tempExtraMovementState = extraMovementState;
-                if (inputState.Has(InputState.PositionChanged))
-                {
-                    SetMovePaths(position);
-                }
-                if (inputState.Has(InputState.RotationChanged))
-                {
-                    if (IsClient)
-                    {
-                        targetYRotation = yAngle;
-                        yRotateLerpTime = 0;
-                        yRotateLerpDuration = clientSendInputsInterval;
-                    }
-                    else
-                    {
-                        CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
-                    }
-                }
             }
         }
 
-        public void HandleSyncTransformAtServer(MessageHandlerData messageHandler)
+        public void ReadSyncTransformAtServer(NetDataReader reader)
         {
             if (IsOwnerClient)
             {
@@ -332,10 +326,9 @@ namespace MultiplayerARPG
             Vector3 position;
             float yAngle;
             long timestamp;
-            messageHandler.Reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
             if (acceptedPositionTimestamp < timestamp)
             {
-                acceptedPositionTimestamp = timestamp;
                 CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
                 if (Vector3.Distance(position.GetXZ(), CacheTransform.position.GetXZ()) > moveThreshold)
                 {
@@ -352,33 +345,15 @@ namespace MultiplayerARPG
                 }
                 MovementState = movementState;
                 ExtraMovementState = extraMovementState;
-            }
-        }
-
-        public void HandleStopMoveAtServer(MessageHandlerData messageHandler)
-        {
-            if (IsOwnerClient)
-            {
-                // Don't read and apply inputs, because it was done (this is both owner client and server)
-                return;
-            }
-            if (Entity.MovementSecure == MovementSecure.NotSecure)
-            {
-                // Movement handling at client, so don't read movement inputs from client (but have to read transform)
-                return;
-            }
-            long timestamp;
-            messageHandler.Reader.ReadStopMoveMessage(out timestamp);
-            if (acceptedPositionTimestamp < timestamp)
-            {
                 acceptedPositionTimestamp = timestamp;
-                StopMoveFunction();
             }
         }
 
-        public void HandleJumpAtServer(MessageHandlerData messageHandler)
+        protected virtual void OnTeleport(Vector3 position, float yAngle)
         {
-            // There is no jump for astar movement
+            CacheAIPath.isStopped = true;
+            CacheAIPath.Teleport(position);
+            CacheTransform.rotation = Quaternion.Euler(0, yAngle, 0);
         }
     }
 }
