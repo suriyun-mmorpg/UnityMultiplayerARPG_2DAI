@@ -500,6 +500,7 @@ Transform:
   - {fileID: 128530181839769633}
   - {fileID: 128530181839773675}
   - {fileID: 6970438197438635007}
+  - {fileID: 1167348856277244155}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -534,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56367cc2ed44f1e49835e9c247771fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetId: 
+  assetId: f72046b7c01eaff45b767d796a233807
   objectId: 0
   visibleRange: 0
   alwaysVisible: 0
@@ -662,6 +663,7 @@ MonoBehaviour:
   missileDamageTransform: {fileID: 128530181839769856}
   characterUiTransform: {fileID: 128530181839769633}
   miniMapUiTransform: {fileID: 128530181839770376}
+  chatBubbleTransform: {fileID: 1167348856277244155}
   debugDamageLaunchingColor: {r: 0, g: 1, b: 0, a: 0.04}
   race: {fileID: 0}
   onDead:
@@ -790,7 +792,7 @@ MonoBehaviour:
     sendInterval: 0.1
     dataChannel: 1
     deliveryMethod: 2
-    clientDataChannel: 1
+    clientDataChannel: 3
     clientDeliveryMethod: 1
     value: 0
   selectableWeaponSets:
@@ -6350,9 +6352,6 @@ MonoBehaviour:
   stoppingDistance: 0.1
   moveThreshold: 0.01
   snapThreshold: 5
-  clientSyncTransformInterval: 0.05
-  clientSendInputsInterval: 0.05
-  serverSyncTransformInterval: 0.05
 --- !u!114 &1140283742087902278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9180,12 +9179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 0
-  bounds:
-    offsets: {x: 0, y: 0, z: 0}
-    size:
-      x: 0
-      y: 0
-      z: 0
   damageRate: 2
   debugHistoryColor: {r: 0, g: 1, b: 0, a: 0.04}
   debugRewindColor: {r: 0, g: 0, b: 1, a: 0.04}
@@ -9822,12 +9815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 0
-  bounds:
-    offsets: {x: 0, y: 0, z: 0}
-    size:
-      x: 0
-      y: 0
-      z: 0
   damageRate: 1
   debugHistoryColor: {r: 0, g: 1, b: 0, a: 0.04}
   debugRewindColor: {r: 0, g: 0, b: 1, a: 0.04}
@@ -10050,12 +10037,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 0
-  bounds:
-    offsets: {x: 0, y: 0, z: 0}
-    size:
-      x: 0
-      y: 0
-      z: 0
   damageRate: 1
   debugHistoryColor: {r: 0, g: 1, b: 0, a: 0.04}
   debugRewindColor: {r: 0, g: 0, b: 1, a: 0.04}
@@ -10488,6 +10469,36 @@ Transform:
   - {fileID: 128530181839769705}
   m_Father: {fileID: 128530181839769613}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6043715877820957528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1167348856277244155}
+  m_Layer: 8
+  m_Name: ChatBubbleTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1167348856277244155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043715877820957528}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 128530181839770549}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6495484222512606164
 GameObject:
