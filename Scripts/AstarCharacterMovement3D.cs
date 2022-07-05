@@ -70,6 +70,17 @@ namespace MultiplayerARPG
             return Quaternion.Euler(0f, CacheTransform.eulerAngles.y, 0f);
         }
 
+        public void SetSmoothTurnSpeed(float speed)
+        {
+            // TODO: MAY implement it later
+        }
+
+        public float GetSmoothTurnSpeed()
+        {
+            // TODO: MAY implement it later
+            return 0f;
+        }
+
         public void Teleport(Vector3 position, Quaternion rotation)
         {
             if (!IsServer)
