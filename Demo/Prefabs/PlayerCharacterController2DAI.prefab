@@ -55,6 +55,7 @@ MonoBehaviour:
   wasdClearTargetDistance: 15
   pointClickSetTargetImmediately: 0
   pointClickInterruptCastingSkill: 0
+  turnSmoothSpeed: 10
   targetObjectPrefab: {fileID: 1401871392997294, guid: 39a34d269d7344e448989fd67a727a1d,
     type: 3}
   buildGridSnap: 1
