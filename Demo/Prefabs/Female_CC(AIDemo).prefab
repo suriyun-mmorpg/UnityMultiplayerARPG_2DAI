@@ -802,6 +802,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 374512570995467354}
+  settingType: 2
+  otherSettingId: 
   moveFootstepSettings:
     soundData:
       randomAudioClips:
@@ -5741,6 +5743,7 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  leftHandWieldingWeaponAnimations: []
   skillAnimations:
   - skill: {fileID: 11400000, guid: e51e32bb6c31b564a9e211e7b65c82ec, type: 2}
     castState:
@@ -6069,6 +6072,7 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  customAnimations: []
 --- !u!114 &-2794859739207121637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7785,7 +7789,7 @@ MonoBehaviour:
   activateInstantiatedObject: 0
   animator: {fileID: 374512570995467301}
   skinnedMeshRenderer: {fileID: 0}
-  actionAvatarMask: {fileID: 0}
+  actionAvatarMask: {fileID: 31900000, guid: 46c4b7ef94e138345b701a79ad0e62c2, type: 2}
   transitionDuration: 0.1
   defaultAnimations:
     idleState:
@@ -8808,7 +8812,9 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  leftHandWieldingWeaponAnimations: []
   skillAnimations: []
+  customAnimations: []
 --- !u!1 &374512570995472569
 GameObject:
   m_ObjectHideFlags: 0

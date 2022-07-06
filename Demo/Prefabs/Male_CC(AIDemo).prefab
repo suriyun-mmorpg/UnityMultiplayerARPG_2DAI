@@ -1038,6 +1038,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 128530181839773181}
+  settingType: 2
+  otherSettingId: 
   moveFootstepSettings:
     soundData:
       randomAudioClips:
@@ -5977,6 +5979,7 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  leftHandWieldingWeaponAnimations: []
   skillAnimations:
   - skill: {fileID: 11400000, guid: e51e32bb6c31b564a9e211e7b65c82ec, type: 2}
     castState:
@@ -6305,6 +6308,7 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  customAnimations: []
 --- !u!114 &8959155830167993038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7894,7 +7898,9 @@ MonoBehaviour:
       fixedDuration: 0
       extendDuration: 0
       audioClips: []
+  leftHandWieldingWeaponAnimations: []
   skillAnimations: []
+  customAnimations: []
 --- !u!1 &128530181839766415
 GameObject:
   m_ObjectHideFlags: 0
