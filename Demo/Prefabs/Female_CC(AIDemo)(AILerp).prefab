@@ -862,11 +862,12 @@ MonoBehaviour:
     randomPitchMax: 1
   swimFootstepSettings:
     soundData:
-      randomAudioClips: []
+      randomAudioClips:
+      - {fileID: 8300000, guid: 394e6f52ecf38d94a9640265db08b14a, type: 3}
     stepDelay: 0.35
     stepThreshold: 0.1
-    randomVolumeMin: 0.75
-    randomVolumeMax: 1
+    randomVolumeMin: 0.15
+    randomVolumeMax: 0.3
     randomPitchMin: 0.75
     randomPitchMax: 1
   soundData:
