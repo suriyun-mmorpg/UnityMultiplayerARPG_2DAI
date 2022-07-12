@@ -179,10 +179,10 @@ namespace MultiplayerARPG
             if (Entity.MovementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
             {
                 EntityMovementInputState inputState;
+                currentInput = this.SetInputMovementState(currentInput, MovementState);
+                currentInput = this.SetInputExtraMovementState(currentInput, tempExtraMovementState);
                 if (this.DifferInputEnoughToSend(oldInput, currentInput, out inputState))
                 {
-                    currentInput = this.SetInputMovementState(currentInput, MovementState);
-                    currentInput = this.SetInputExtraMovementState(currentInput, tempExtraMovementState);
                     this.ClientWriteMovementInput3D(writer, inputState, currentInput.MovementState, currentInput.ExtraMovementState, currentInput.Position, currentInput.Rotation);
                     oldInput = currentInput;
                     currentInput = null;
