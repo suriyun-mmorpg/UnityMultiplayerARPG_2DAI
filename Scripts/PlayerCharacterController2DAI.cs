@@ -51,7 +51,7 @@ namespace MultiplayerARPG
         {
             Vector3 nodePosition = (Vector3)_p.path[_p.path.Count - 1].position;
             destination = nodePosition;
-            PlayerCharacterEntity.PointClickMovement(nodePosition);
+            PlayingCharacterEntity.PointClickMovement(nodePosition);
         }
 
         protected void OnEntityPathComplete(Path _p)
@@ -63,7 +63,7 @@ namespace MultiplayerARPG
                 if (Vector3.Distance(nodePosition + measuringPositionOffsets, expectTargetPosition) <= expectTargetDistance)
                 {
                     destination = null;
-                    PlayerCharacterEntity.PointClickMovement(nodePosition);
+                    PlayingCharacterEntity.PointClickMovement(nodePosition);
                     break;
                 }
             }
@@ -89,7 +89,7 @@ namespace MultiplayerARPG
 
         protected override void UpdateTargetEntityPosition(Vector3 measuringPosition, Vector3 targetPosition, float distance)
         {
-            if (PlayerCharacterEntity.IsPlayingActionAnimation())
+            if (PlayingCharacterEntity.IsPlayingActionAnimation())
                 return;
 
             if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE &&
