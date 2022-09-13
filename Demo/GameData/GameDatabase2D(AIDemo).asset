@@ -18,6 +18,7 @@ MonoBehaviour:
   monsterCharacterEntities:
   - {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 3}
   vehicleEntities: []
+  otherNetworkObjects: []
   attributes:
   - {fileID: 11400000, guid: cf50e3647cfae0e44b683163d2171277, type: 2}
   - {fileID: 11400000, guid: cd3d2fb4f3c67fd4dbba3bd0ccd0095e, type: 2}
@@ -85,8 +86,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d55d8bfb45f9c574d9120b6ffcd66e3c, type: 2}
   - {fileID: 11400000, guid: 25f18d3131d816146b890611d9123df4, type: 2}
   - {fileID: 11400000, guid: c036ac5144bfb36428bd9b2fa2a5ce2c, type: 2}
+  - {fileID: 11400000, guid: f1ab1d57da6aca145b53e68606547d7f, type: 2}
   - {fileID: 11400000, guid: 558b16358ddfa6346b5e5e6211155da6, type: 2}
   guildSkills: []
+  guildIcons: []
   statusEffects: []
   playerCharacters:
   - {fileID: 11400000, guid: df4b0a5cc68c15a4090f0dc937a52246, type: 2}
@@ -102,3 +105,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b098152a1e9a1564bbe41cad1f3baf16, type: 2}
   - {fileID: 11400000, guid: 1b2b3f830f1dac4458bf9a6c347f5248, type: 2}
   - {fileID: 11400000, guid: 150c22002ef3a7d4786355f0cd52ffe4, type: 2}
+  gachas: []
+  attributeBundleName: attribute
+  currencyBundleName: currency
+  damageElementBundleName: damageElement
+  characterBundleName: character
+  itemBundleName: item
+  mapInfoBundleName: map
+  sceneBundleName: scene
+  skillBundleName: skill
+  guildSkillBundleName: guildSkill
+  guildIconBundleName: guildIcon
+  questBundleName: quest
+  factionBundleName: faction
+  gachaBundleName: gacha
+  setNameForUnnamedAssetsOnly: 1
