@@ -236,16 +236,16 @@ namespace MultiplayerARPG
             float yAngle;
             long timestamp;
             reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
-            if (acceptedPositionTimestamp < timestamp)
+            if (acceptedPositionTimestamp <= timestamp)
             {
-                acceptedPositionTimestamp = timestamp;
-                // Snap character to the position if character is too far from the position
                 if (movementState.Has(MovementState.IsTeleport))
                 {
+                    // Server requested to teleport
                     OnTeleport(position, yAngle);
                 }
                 else if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
                 {
+                    // Snap character to the position if character is too far from the position
                     if (Entity.MovementSecure == MovementSecure.ServerAuthoritative || !IsOwnerClient)
                     {
                         CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
@@ -266,6 +266,7 @@ namespace MultiplayerARPG
                     MovementState = movementState;
                     ExtraMovementState = extraMovementState;
                 }
+                acceptedPositionTimestamp = timestamp;
             }
         }
 
@@ -290,7 +291,7 @@ namespace MultiplayerARPG
             float yAngle;
             long timestamp;
             reader.ReadMovementInputMessage3D(out inputState, out movementState, out extraMovementState, out position, out yAngle, out timestamp);
-            if (acceptedPositionTimestamp < timestamp)
+            if (acceptedPositionTimestamp <= timestamp)
             {
                 if (!inputState.Has(EntityMovementInputState.IsStopped))
                 {
@@ -339,7 +340,7 @@ namespace MultiplayerARPG
             float yAngle;
             long timestamp;
             reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
-            if (acceptedPositionTimestamp < timestamp)
+            if (acceptedPositionTimestamp <= timestamp)
             {
                 CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
                 if (Vector3.Distance(position.GetXZ(), CacheTransform.position.GetXZ()) > moveThreshold)
