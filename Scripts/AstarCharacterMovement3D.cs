@@ -14,6 +14,12 @@ namespace MultiplayerARPG
         [Header("Movement Settings")]
         [Range(0.01f, 1f)]
         public float stoppingDistance = 0.1f;
+        public MovementSecure movementSecure = MovementSecure.NotSecure;
+
+        [Header("Networking Settings")]
+        public float moveThreshold = 0.01f;
+        public float snapThreshold = 5.0f;
+
         public float StoppingDistance
         {
             get { return stoppingDistance; }
@@ -22,10 +28,6 @@ namespace MultiplayerARPG
         public ExtraMovementState ExtraMovementState { get; protected set; }
         public DirectionVector2 Direction2D { get { return Vector2.down; } set { } }
         public float CurrentMoveSpeed { get { return CacheAIPath.isStopped ? 0f : CacheAIPath.maxSpeed; } }
-
-        [Header("Networking Settings")]
-        public float moveThreshold = 0.01f;
-        public float snapThreshold = 5.0f;
 
         protected long acceptedPositionTimestamp;
         protected float? targetYRotation;
@@ -57,7 +59,7 @@ namespace MultiplayerARPG
                 return;
             if (!Entity.CanMove())
                 return;
-            if (this.CanPredictMovement())
+            if (CanPredictMovement())
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 CacheTransform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
@@ -103,7 +105,7 @@ namespace MultiplayerARPG
                 return;
             if (moveDirection.sqrMagnitude <= 0)
                 return;
-            if (this.CanPredictMovement())
+            if (CanPredictMovement())
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 SetMovePaths(CacheTransform.position + moveDirection);
@@ -116,7 +118,7 @@ namespace MultiplayerARPG
         {
             if (!Entity.CanMove())
                 return;
-            if (this.CanPredictMovement())
+            if (CanPredictMovement())
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 SetMovePaths(position);
@@ -129,7 +131,7 @@ namespace MultiplayerARPG
         {
             if (!Entity.CanMove())
                 return;
-            if (this.CanPredictMovement())
+            if (CanPredictMovement())
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 tempExtraMovementState = extraMovementState;
@@ -163,20 +165,20 @@ namespace MultiplayerARPG
         public bool WriteClientState(NetDataWriter writer, out bool shouldSendReliably)
         {
             shouldSendReliably = false;
-            if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
+            if (IsOwnerClient || (IsServer && movementSecure == MovementSecure.ServerAuthoritative))
             {
                 // Update movement state
                 MovementState = (CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
                 // Update extra movement state
                 ExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
             }
-            if (Entity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient && !IsServer)
+            if (movementSecure == MovementSecure.NotSecure && IsOwnerClient && !IsServer)
             {
                 // Sync transform from owner client to server (except it's both owner client and server)
                 this.ClientWriteSyncTransform3D(writer);
                 return true;
             }
-            if (Entity.MovementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
+            if (movementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
             {
                 EntityMovementInputState inputState;
                 currentInput = this.SetInputMovementState(currentInput, MovementState);
@@ -212,7 +214,7 @@ namespace MultiplayerARPG
 
         public void ReadClientStateAtServer(NetDataReader reader)
         {
-            switch (Entity.MovementSecure)
+            switch (movementSecure)
             {
                 case MovementSecure.NotSecure:
                     ReadSyncTransformAtServer(reader);
@@ -246,7 +248,7 @@ namespace MultiplayerARPG
                 else if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
                 {
                     // Snap character to the position if character is too far from the position
-                    if (Entity.MovementSecure == MovementSecure.ServerAuthoritative || !IsOwnerClient)
+                    if (movementSecure == MovementSecure.ServerAuthoritative || !IsOwnerClient)
                     {
                         CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
                         CacheTransform.position = position;
@@ -277,7 +279,7 @@ namespace MultiplayerARPG
                 // Don't read and apply inputs, because it was done (this is both owner client and server)
                 return;
             }
-            if (Entity.MovementSecure == MovementSecure.NotSecure)
+            if (movementSecure == MovementSecure.NotSecure)
             {
                 // Movement handling at client, so don't read movement inputs from client (but have to read transform)
                 return;
@@ -329,7 +331,7 @@ namespace MultiplayerARPG
                 // Don't read and apply transform, because it was done (this is both owner client and server)
                 return;
             }
-            if (Entity.MovementSecure == MovementSecure.ServerAuthoritative)
+            if (movementSecure == MovementSecure.ServerAuthoritative)
             {
                 // Movement handling at server, so don't read sync transform from client
                 return;
@@ -367,6 +369,11 @@ namespace MultiplayerARPG
             CacheAIPath.isStopped = true;
             CacheAIPath.Teleport(position);
             CacheTransform.rotation = Quaternion.Euler(0, yAngle, 0);
+        }
+
+        public bool CanPredictMovement()
+        {
+            return Entity.IsOwnerClient || (Entity.IsOwnerClientOrOwnedByServer && movementSecure == MovementSecure.NotSecure) || (Entity.IsServer && movementSecure == MovementSecure.ServerAuthoritative);
         }
     }
 }

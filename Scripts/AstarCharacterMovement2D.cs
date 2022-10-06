@@ -14,8 +14,8 @@ namespace MultiplayerARPG
         {
             get
             {
-                if ((Entity.MovementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
-                    (Entity.MovementSecure == MovementSecure.NotSecure && IsOwnerClient))
+                if ((movementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
+                    (movementSecure == MovementSecure.NotSecure && IsOwnerClient))
                     return CacheAIPath.reachedEndOfPath;
                 return remoteReachedEndOfPath;
             }
@@ -90,7 +90,7 @@ namespace MultiplayerARPG
             if (CacheAIPath.velocity.sqrMagnitude > 0.25f)
                 Direction2D = CacheAIPath.velocity.normalized;
 
-            if (IsOwnerClient || (IsServer && Entity.MovementSecure == MovementSecure.ServerAuthoritative))
+            if (IsOwnerClient || (IsServer && movementSecure == MovementSecure.ServerAuthoritative))
             {
                 // Update movement state
                 MovementState = (CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
