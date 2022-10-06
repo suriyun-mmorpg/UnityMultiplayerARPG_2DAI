@@ -238,14 +238,14 @@ namespace MultiplayerARPG
             float yAngle;
             long timestamp;
             reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
-            if (acceptedPositionTimestamp <= timestamp)
+            if (movementState.Has(MovementState.IsTeleport))
             {
-                if (movementState.Has(MovementState.IsTeleport))
-                {
-                    // Server requested to teleport
-                    OnTeleport(position, yAngle);
-                }
-                else if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
+                // Server requested to teleport
+                OnTeleport(position, yAngle);
+            }
+            else if (acceptedPositionTimestamp <= timestamp)
+            {
+                if (Vector3.Distance(position, CacheTransform.position) >= snapThreshold)
                 {
                     // Snap character to the position if character is too far from the position
                     if (movementSecure == MovementSecure.ServerAuthoritative || !IsOwnerClient)
