@@ -8,7 +8,7 @@ namespace MultiplayerARPG
     {
         public IAstarAI CacheAIPath { get; private set; }
         public Seeker Seeker { get; private set; }
-        protected bool remoteReachedEndOfPath = true;
+        protected bool _remoteReachedEndOfPath = true;
 
         public bool reachedEndOfPath
         {
@@ -17,7 +17,7 @@ namespace MultiplayerARPG
                 if ((movementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
                     (movementSecure == MovementSecure.NotSecure && IsOwnerClient))
                     return CacheAIPath.reachedEndOfPath;
-                return remoteReachedEndOfPath;
+                return _remoteReachedEndOfPath;
             }
         }
 
@@ -43,7 +43,7 @@ namespace MultiplayerARPG
 
         protected void NetFuncSetReachedEndOfPath(bool reachedEndOfPath)
         {
-            remoteReachedEndOfPath = reachedEndOfPath;
+            _remoteReachedEndOfPath = reachedEndOfPath;
         }
 
         public override void EntityUpdate()
@@ -74,11 +74,11 @@ namespace MultiplayerARPG
                 CacheAIPath.isStopped = false;
                 CacheAIPath.destination = NavPaths.Peek();
             }
-            else if (clientTargetPosition.HasValue)
+            else if (_clientTargetPosition.HasValue)
             {
                 // Set destination to AI Path
                 CacheAIPath.isStopped = false;
-                CacheAIPath.destination = clientTargetPosition.Value;
+                CacheAIPath.destination = _clientTargetPosition.Value;
             }
             else
             {
@@ -95,17 +95,17 @@ namespace MultiplayerARPG
                 // Update movement state
                 MovementState = (CacheAIPath.velocity.sqrMagnitude > 0 ? MovementState.Forward : MovementState.None) | MovementState.IsGrounded;
                 // Update extra movement state
-                ExtraMovementState = this.ValidateExtraMovementState(MovementState, tempExtraMovementState);
+                ExtraMovementState = this.ValidateExtraMovementState(MovementState, _tempExtraMovementState);
             }
 
             // Set inputs
             if (CacheAIPath.velocity.sqrMagnitude > 0f)
             {
-                currentInput = this.SetInputMovementState2D(currentInput, tempMovementState);
-                currentInput = this.SetInputPosition(currentInput, CacheAIPath.destination);
-                currentInput = this.SetInputIsKeyMovement(currentInput, false);
+                _currentInput = this.SetInputMovementState2D(_currentInput, _tempMovementState);
+                _currentInput = this.SetInputPosition(_currentInput, CacheAIPath.destination);
+                _currentInput = this.SetInputIsKeyMovement(_currentInput, false);
             }
-            currentInput = this.SetInputDirection2D(currentInput, Direction2D);
+            _currentInput = this.SetInputDirection2D(_currentInput, Direction2D);
         }
 
         public override void SetLookRotation(Quaternion rotation)
