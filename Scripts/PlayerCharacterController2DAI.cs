@@ -43,8 +43,8 @@ namespace MultiplayerARPG
         public override void UpdatePointClickInput()
         {
             base.UpdatePointClickInput();
-            if (getMouseDown)
-                previousPointClickPosition = Vector3.positiveInfinity;
+            if (_getMouseDown)
+                _previousPointClickPosition = Vector3.positiveInfinity;
         }
 
         protected void OnGroundPathComplete(Path _p)
@@ -93,13 +93,13 @@ namespace MultiplayerARPG
                 return;
 
             if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE &&
-                Vector3.Distance(previousPointClickPosition, targetPosition) > MIN_START_MOVE_DISTANCE)
+                Vector3.Distance(_previousPointClickPosition, targetPosition) > MIN_START_MOVE_DISTANCE)
             {
                 measuringPositionOffsets = measuringPosition - MovementTransform.position;
                 expectTargetPosition = targetPosition;
                 expectTargetDistance = distance;
                 entitySeeker.StartPath(MovementTransform.position, targetPosition);
-                previousPointClickPosition = targetPosition;
+                _previousPointClickPosition = targetPosition;
             }
         }
 
