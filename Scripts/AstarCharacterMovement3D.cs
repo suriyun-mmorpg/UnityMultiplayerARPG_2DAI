@@ -63,7 +63,7 @@ namespace MultiplayerARPG
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 CacheTransform.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
-                _currentInput = this.SetInputRotation(_currentInput, CacheTransform.rotation);
+                _currentInput = Entity.SetInputRotation(_currentInput, CacheTransform.rotation);
             }
         }
 
@@ -109,8 +109,8 @@ namespace MultiplayerARPG
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 SetMovePaths(CacheTransform.position + moveDirection);
-                _currentInput = this.SetInputPosition(_currentInput, CacheTransform.position + moveDirection);
-                _currentInput = this.SetInputIsKeyMovement(_currentInput, true);
+                _currentInput = Entity.SetInputPosition(_currentInput, CacheTransform.position + moveDirection);
+                _currentInput = Entity.SetInputIsKeyMovement(_currentInput, true);
             }
         }
 
@@ -122,8 +122,8 @@ namespace MultiplayerARPG
             {
                 // Always apply movement to owner client (it's client prediction for server auth movement)
                 SetMovePaths(position);
-                _currentInput = this.SetInputPosition(_currentInput, position);
-                _currentInput = this.SetInputIsKeyMovement(_currentInput, false);
+                _currentInput = Entity.SetInputPosition(_currentInput, position);
+                _currentInput = Entity.SetInputIsKeyMovement(_currentInput, false);
             }
         }
 
@@ -180,9 +180,9 @@ namespace MultiplayerARPG
             }
             if (movementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
             {
-                _currentInput = this.SetInputMovementState(_currentInput, MovementState);
-                _currentInput = this.SetInputExtraMovementState(_currentInput, _tempExtraMovementState);
-                if (this.DifferInputEnoughToSend(_oldInput, _currentInput, out EntityMovementInputState inputState))
+                _currentInput = Entity.SetInputMovementState(_currentInput, MovementState);
+                _currentInput = Entity.SetInputExtraMovementState(_currentInput, _tempExtraMovementState);
+                if (Entity.DifferInputEnoughToSend(_oldInput, _currentInput, out EntityMovementInputState inputState))
                 {
                     this.ClientWriteMovementInput3D(writer, inputState, _currentInput.MovementState, _currentInput.ExtraMovementState, _currentInput.Position, _currentInput.Rotation);
                     _oldInput = _currentInput;

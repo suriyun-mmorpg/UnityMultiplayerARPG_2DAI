@@ -101,11 +101,11 @@ namespace MultiplayerARPG
             // Set inputs
             if (CacheAIPath.velocity.sqrMagnitude > 0f)
             {
-                _currentInput = this.SetInputMovementState2D(_currentInput, _tempMovementState);
-                _currentInput = this.SetInputPosition(_currentInput, CacheAIPath.destination);
-                _currentInput = this.SetInputIsKeyMovement(_currentInput, false);
+                _currentInput = Entity.SetInputMovementState2D(_currentInput, _tempMovementState);
+                _currentInput = Entity.SetInputPosition(_currentInput, CacheAIPath.destination);
+                _currentInput = Entity.SetInputIsKeyMovement(_currentInput, false);
             }
-            _currentInput = this.SetInputDirection2D(_currentInput, Direction2D);
+            _currentInput = Entity.SetInputDirection2D(_currentInput, Direction2D);
         }
 
         public override void SetLookRotation(Quaternion rotation)
