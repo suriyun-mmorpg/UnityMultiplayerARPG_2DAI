@@ -7,7 +7,7 @@ namespace MultiplayerARPG
 {
     public class AstarCharacterMovement3D : BaseNetworkedGameEntityComponent<BaseGameEntity>, IEntityMovementComponent
     {
-        protected static readonly RaycastHit[] s_findGroundRaycastHits = new RaycastHit[25];
+        protected static readonly RaycastHit[] s_findGroundRaycastHits = new RaycastHit[4];
 
         public IAstarAI CacheAIPath { get; private set; }
         public Seeker Seeker { get; private set; }
