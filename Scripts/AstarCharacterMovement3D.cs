@@ -180,10 +180,9 @@ namespace MultiplayerARPG
             }
             if (movementSecure == MovementSecure.ServerAuthoritative && IsOwnerClient && !IsServer)
             {
-                EntityMovementInputState inputState;
                 _currentInput = this.SetInputMovementState(_currentInput, MovementState);
                 _currentInput = this.SetInputExtraMovementState(_currentInput, _tempExtraMovementState);
-                if (this.DifferInputEnoughToSend(_oldInput, _currentInput, out inputState))
+                if (this.DifferInputEnoughToSend(_oldInput, _currentInput, out EntityMovementInputState inputState))
                 {
                     this.ClientWriteMovementInput3D(writer, inputState, _currentInput.MovementState, _currentInput.ExtraMovementState, _currentInput.Position, _currentInput.Rotation);
                     _oldInput = _currentInput;
@@ -232,12 +231,7 @@ namespace MultiplayerARPG
                 // Don't read and apply transform, because it was done at server
                 return;
             }
-            MovementState movementState;
-            ExtraMovementState extraMovementState;
-            Vector3 position;
-            float yAngle;
-            long timestamp;
-            reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadSyncTransformMessage3D(out MovementState movementState, out ExtraMovementState extraMovementState, out Vector3 position, out float yAngle, out long timestamp);
             if (movementState.Has(MovementState.IsTeleport))
             {
                 // Server requested to teleport
@@ -286,13 +280,7 @@ namespace MultiplayerARPG
             }
             if (!Entity.CanMove())
                 return;
-            EntityMovementInputState inputState;
-            MovementState movementState;
-            ExtraMovementState extraMovementState;
-            Vector3 position;
-            float yAngle;
-            long timestamp;
-            reader.ReadMovementInputMessage3D(out inputState, out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadMovementInputMessage3D(out EntityMovementInputState inputState, out MovementState movementState, out ExtraMovementState extraMovementState, out Vector3 position, out float yAngle, out long timestamp);
             if (_acceptedPositionTimestamp <= timestamp)
             {
                 if (!inputState.Has(EntityMovementInputState.IsStopped))
@@ -336,12 +324,7 @@ namespace MultiplayerARPG
                 // Movement handling at server, so don't read sync transform from client
                 return;
             }
-            MovementState movementState;
-            ExtraMovementState extraMovementState;
-            Vector3 position;
-            float yAngle;
-            long timestamp;
-            reader.ReadSyncTransformMessage3D(out movementState, out extraMovementState, out position, out yAngle, out timestamp);
+            reader.ReadSyncTransformMessage3D(out MovementState movementState, out ExtraMovementState extraMovementState, out Vector3 position, out float yAngle, out long timestamp);
             if (_acceptedPositionTimestamp <= timestamp)
             {
                 CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
