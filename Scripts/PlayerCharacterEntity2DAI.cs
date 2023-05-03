@@ -13,7 +13,7 @@ namespace MultiplayerARPG
         {
             base.InitialRequiredComponents();
             if (Movement == null)
-                Logging.LogError("[" + ToString() + "] Did not setup entity movement component to this entity.");
+                Logging.LogWarning(ToString(), "Did not setup entity movement component to this entity.");
         }
     }
 }

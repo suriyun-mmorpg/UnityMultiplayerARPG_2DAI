@@ -87,7 +87,7 @@ namespace MultiplayerARPG
         {
             if (!IsServer)
             {
-                Logging.LogWarning("CharacterControllerEntityMovement", "Teleport function shouldn't be called at client [" + name + "]");
+                Logging.LogWarning(nameof(AstarCharacterMovement3D), $"Teleport function shouldn't be called at client [{name}]");
                 return;
             }
             _isTeleporting = true;
