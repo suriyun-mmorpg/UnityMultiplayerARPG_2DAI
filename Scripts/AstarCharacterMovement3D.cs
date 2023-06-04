@@ -246,6 +246,7 @@ namespace MultiplayerARPG
                     {
                         CacheTransform.eulerAngles = new Vector3(0, yAngle, 0);
                         CacheTransform.position = position;
+                        CurrentGameManager.ShouldPhysicSyncTransforms2D = true;
                     }
                     MovementState = movementState;
                     ExtraMovementState = extraMovementState;
@@ -334,6 +335,7 @@ namespace MultiplayerARPG
                     {
                         // If it's server only (not a host), set position follows the client immediately
                         CacheTransform.position = position;
+                        CurrentGameManager.ShouldPhysicSyncTransforms2D = true;
                     }
                     else
                     {
