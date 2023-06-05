@@ -37,6 +37,7 @@ namespace MultiplayerARPG
         protected EntityMovementInput _currentInput;
         protected ExtraMovementState _tempExtraMovementState;
         protected bool _isTeleporting;
+        protected bool _stillMoveAfterTeleport;
 
         public override void EntityAwake()
         {
@@ -83,7 +84,7 @@ namespace MultiplayerARPG
             return 0f;
         }
 
-        public void Teleport(Vector3 position, Quaternion rotation)
+        public void Teleport(Vector3 position, Quaternion rotation, bool stillMoveAfterTeleport)
         {
             if (!IsServer)
             {
@@ -91,7 +92,8 @@ namespace MultiplayerARPG
                 return;
             }
             _isTeleporting = true;
-            OnTeleport(position, rotation.eulerAngles.y);
+            _stillMoveAfterTeleport = stillMoveAfterTeleport;
+            OnTeleport(position, rotation.eulerAngles.y, stillMoveAfterTeleport);
         }
 
         public bool FindGroundedPosition(Vector3 fromPosition, float findDistance, out Vector3 result)
@@ -199,7 +201,10 @@ namespace MultiplayerARPG
             if (_isTeleporting)
             {
                 shouldSendReliably = true;
-                MovementState |= MovementState.IsTeleport;
+                if (_stillMoveAfterTeleport)
+                    MovementState |= MovementState.IsTeleport;
+                else
+                    MovementState = MovementState.IsTeleport;
             }
             else
             {
@@ -208,6 +213,7 @@ namespace MultiplayerARPG
             // Sync transform from server to all clients (include owner client)
             this.ServerWriteSyncTransform3D(writer);
             _isTeleporting = false;
+            _stillMoveAfterTeleport = false;
             return true;
         }
 
@@ -235,7 +241,7 @@ namespace MultiplayerARPG
             if (movementState.Has(MovementState.IsTeleport))
             {
                 // Server requested to teleport
-                OnTeleport(position, yAngle);
+                OnTeleport(position, yAngle, movementState == MovementState.IsTeleport);
             }
             else if (_acceptedPositionTimestamp <= timestamp)
             {
@@ -349,9 +355,10 @@ namespace MultiplayerARPG
             }
         }
 
-        protected virtual void OnTeleport(Vector3 position, float yAngle)
+        protected virtual void OnTeleport(Vector3 position, float yAngle, bool stillMoveAfterTeleport)
         {
-            CacheAIPath.isStopped = true;
+            if (!stillMoveAfterTeleport)
+                CacheAIPath.isStopped = true;
             CacheAIPath.Teleport(position);
             CacheTransform.rotation = Quaternion.Euler(0, yAngle, 0);
         }

@@ -115,9 +115,9 @@ namespace MultiplayerARPG
             base.SetLookRotation(rotation);
         }
 
-        protected override void OnTeleport(Vector2 position)
+        protected override void OnTeleport(Vector2 position, bool stillMoveAfterTeleport)
         {
-            base.OnTeleport(position);
+            base.OnTeleport(position, stillMoveAfterTeleport);
             CacheAIPath.Teleport(position);
         }
     }
