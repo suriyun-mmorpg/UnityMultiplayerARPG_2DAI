@@ -241,7 +241,7 @@ namespace MultiplayerARPG
             if (movementState.Has(MovementState.IsTeleport))
             {
                 // Server requested to teleport
-                OnTeleport(position, yAngle, movementState == MovementState.IsTeleport);
+                OnTeleport(position, yAngle, movementState != MovementState.IsTeleport);
             }
             else if (_acceptedPositionTimestamp <= timestamp)
             {
