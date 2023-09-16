@@ -88,6 +88,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c036ac5144bfb36428bd9b2fa2a5ce2c, type: 2}
   - {fileID: 11400000, guid: f1ab1d57da6aca145b53e68606547d7f, type: 2}
   - {fileID: 11400000, guid: 558b16358ddfa6346b5e5e6211155da6, type: 2}
+  playerIcons: []
+  playerFrames: []
+  playerTitles: []
   guildSkills: []
   guildIcons: []
   statusEffects: []
@@ -101,10 +104,7 @@ MonoBehaviour:
   mapInfos:
   - {fileID: 11400000, guid: 55030227750854647bdff113f1960462, type: 2}
   quests: []
-  factions:
-  - {fileID: 11400000, guid: b098152a1e9a1564bbe41cad1f3baf16, type: 2}
-  - {fileID: 11400000, guid: 1b2b3f830f1dac4458bf9a6c347f5248, type: 2}
-  - {fileID: 11400000, guid: 150c22002ef3a7d4786355f0cd52ffe4, type: 2}
+  factions: []
   gachas: []
   attributeBundleName: attribute
   currencyBundleName: currency
@@ -114,6 +114,9 @@ MonoBehaviour:
   mapInfoBundleName: map
   sceneBundleName: scene
   skillBundleName: skill
+  playerIconBundleName: playerIcon
+  playerFrameBundleName: playerFrame
+  playerTitleBundleName: playerTitle
   guildSkillBundleName: guildSkill
   guildIconBundleName: guildIcon
   questBundleName: quest
