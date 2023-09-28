@@ -74,12 +74,6 @@ namespace MultiplayerARPG
                 CacheAIPath.isStopped = false;
                 CacheAIPath.destination = NavPaths.Peek();
             }
-            else if (_clientTargetPosition.HasValue)
-            {
-                // Set destination to AI Path
-                CacheAIPath.isStopped = false;
-                CacheAIPath.destination = _clientTargetPosition.Value;
-            }
             else
             {
                 // Character dead?
