@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &410320015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   prefab: {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6, type: 3}
   minLevel: 1
   maxLevel: 1
-  amount: 1
+  amount: 6
   spawningPrefabs: []
   respawnPendingEntitiesDelay: 5
   monsterCharacterEntity: {fileID: 114912236562394856, guid: ad811bc5ad46f5f45b83fb8d0f55d6d6,
@@ -423,7 +423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &561020388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,7 +904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1323440091
 MonoBehaviour:
   m_ObjectHideFlags: 0
