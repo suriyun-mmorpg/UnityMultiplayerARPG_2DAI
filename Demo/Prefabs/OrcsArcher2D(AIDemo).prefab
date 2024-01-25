@@ -23,12 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127372337633640}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1201331173019694
 GameObject:
@@ -53,12 +54,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201331173019694}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1324273769943680
 GameObject:
@@ -83,12 +85,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324273769943680}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392294921232084
 GameObject:
@@ -115,12 +118,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392294921232084}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212157896959509878
 SpriteRenderer:
@@ -133,10 +137,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -207,12 +213,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741883228188126}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776999070509950
 GameObject:
@@ -239,12 +246,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776999070509950}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.05, z: 0.01}
   m_LocalScale: {x: 0.35, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &212472257302689176
 SpriteRenderer:
@@ -257,10 +265,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -329,7 +339,6 @@ GameObject:
   - component: {fileID: 114383154828356954}
   - component: {fileID: 114423900364055418}
   - component: {fileID: 114526811231809040}
-  - component: {fileID: 7716701684729141230}
   - component: {fileID: 3716761511725307163}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
@@ -345,9 +354,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777251013356746}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4449610483058146}
   - {fileID: 1096705827687241490}
@@ -358,7 +369,6 @@ Transform:
   - {fileID: 4730074270919390}
   - {fileID: 4431576443293610}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114424167947571634
 MonoBehaviour:
@@ -372,6 +382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab0561f743b29941b9e3fed07578b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: 0
+  visibleMaterials: []
+  invisibleMaterials: []
+  fpsMaterials: []
   hiddingObjects: []
   hiddingRenderers: []
   fpsHiddingObjects: []
@@ -382,11 +396,17 @@ MonoBehaviour:
     transform: {fileID: 4926639783571920}
   - effectSocket: Body
     transform: {fileID: 4848377747683098}
+  setEffectLayerFollowEntity: 1
+  effectLayer:
+    layerIndex: 0
   setEffectContainersBySetters: 0
-  modelManager: {fileID: 114423900364055418}
   activateObjectsWhenSwitchModel: []
   deactivateObjectsWhenSwitchModel: []
+  vehicleModels: []
   equipmentContainers: []
+  setEquipmentLayerFollowEntity: 1
+  equipmentLayer:
+    layerIndex: 0
   setEquipmentContainersBySetters: 0
   deactivateInstantiatedObjects: 0
   activateInstantiatedObject: 0
@@ -410,6 +430,15 @@ MonoBehaviour:
     upLeft: {fileID: 0}
     upRight: {fileID: 0}
   sprintAnimation2D:
+    down: {fileID: 0}
+    up: {fileID: 0}
+    left: {fileID: 0}
+    right: {fileID: 0}
+    downLeft: {fileID: 0}
+    downRight: {fileID: 0}
+    upLeft: {fileID: 0}
+    upRight: {fileID: 0}
+  walkAnimation2D:
     down: {fileID: 0}
     up: {fileID: 0}
     left: {fileID: 0}
@@ -498,6 +527,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -514,10 +549,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56367cc2ed44f1e49835e9c247771fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetId: 
+  assetId: ad811bc5ad46f5f45b83fb8d0f55d6d6
   objectId: 0
   visibleRange: 0
   alwaysVisible: 0
+  doNotDestroyWhenDisconnect: 0
+  poolingSize: 0
+  onGetInstance:
+    m_PersistentCalls:
+      m_Calls: []
+  onSubscriberAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  onSubscriberRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &114962839084613726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,6 +598,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -584,89 +649,24 @@ MonoBehaviour:
   dataChannel: 0
   sendOptions: 0
   sendInterval: 0.1
-  textTitle: {fileID: 0}
-  textTitleB: {fileID: 0}
-  ownerObjects: []
-  nonOwnerObjects: []
+  entityTitle: 
+  entityTitles: []
   syncTitle:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
-  syncTitleB:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value: 
-  entityTitle: 
-  entityTitles: []
+  ownerObjects: []
+  nonOwnerObjects: []
   model: {fileID: 114424167947571634}
   cameraTargetTransform: {fileID: 0}
   fpsCameraTargetTransform: {fileID: 0}
-  movementSecure: 0
-  movementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 1
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value: 0
-  extraMovementState:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 1
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value: 0
-  direction2D:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 1
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-  passengingVehicle:
-    behaviour: {fileID: 0}
-    elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 1
-    syncMode: 0
-    dataChannel: 0
-    deliveryMethod: 2
-    sendInterval: 0.1
-    clientDataChannel: 0
-    clientDeliveryMethod: 1
-    value:
-      objectId: 0
-      seatIndex: 0
   canSideSprint: 0
   canBackwardSprint: 0
   combatTextTransform: {fileID: 4449610483058146}
@@ -687,24 +687,22 @@ MonoBehaviour:
   isImmune:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   currentHp:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -712,6 +710,7 @@ MonoBehaviour:
   missileDamageTransform: {fileID: 4341749962177036}
   characterUiTransform: {fileID: 4730074270919390}
   miniMapUiTransform: {fileID: 4431576443293610}
+  chatBubbleTransform: {fileID: 0}
   debugDamageLaunchingColor: {r: 0, g: 1, b: 0, a: 0.04}
   race: {fileID: 0}
   onDead:
@@ -726,120 +725,131 @@ MonoBehaviour:
   id:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 
   level:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   exp:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   currentMp:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   currentStamina:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 0
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   currentFood:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   currentWater:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   equipWeaponSet:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
+    value: 0
+  isWeaponsSheathed:
+    behaviour: {fileID: 0}
+    elementId: 0
+    syncBehaviour: 0
+    syncMode: 2
     sendInterval: 0.1
+    dataChannel: 0
+    deliveryMethod: 2
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   pitch:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 1
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
+  aimPosition:
+    behaviour: {fileID: 0}
+    elementId: 0
+    syncBehaviour: 0
+    syncMode: 2
+    sendInterval: 0.1
+    dataChannel: 0
+    deliveryMethod: 1
+    clientDataChannel: 0
+    clientDeliveryMethod: 1
   targetEntityId:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -886,29 +896,28 @@ MonoBehaviour:
   characterDatabase: {fileID: 11400000, guid: 63ab244077edf394f805979d0e1c1492, type: 2}
   isOverrideCharacteristic: 0
   overrideCharacteristic: 0
+  faction: {fileID: 0}
   destroyDelay: 2
   destroyRespawnDelay: 5
   summonerObjectId:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
   summonType:
     behaviour: {fileID: 0}
     elementId: 0
-    alwaysSync: 0
-    doNotSyncInitialDataImmediately: 0
+    syncBehaviour: 0
     syncMode: 0
+    sendInterval: 0.1
     dataChannel: 0
     deliveryMethod: 2
-    sendInterval: 0.1
     clientDataChannel: 0
     clientDeliveryMethod: 1
     value: 0
@@ -924,14 +933,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b3f58df6c6a0b4aab0a38ce620fd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSmoothSpeed: 10
   randomWanderDelayMin: 10
   randomWanderDelayMax: 15
   randomWanderDistance: 2
-  findEnemyDelay: 1
+  maxDistanceFromSpawnPoint: 5
+  findEnemyDelayMin: 1
+  findEnemyDelayMax: 1
   followTargetDuration: 5
   turnToEnemySpeed: 800
+  miniStunDuration: 0
   isAttackBuilding: 0
-  isAggressiveWhileSummonerIdle: 0
+  isAttackBuildingFirst: 0
+  aggressiveWhileSummoned: 0
+  switchTargetDelay: 3
 --- !u!114 &114877638974942912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,11 +992,8 @@ MonoBehaviour:
   sendOptions: 0
   sendInterval: 0.1
   stoppingDistance: 0.1
-  moveThreshold: 0.01
+  movementSecure: 0
   snapThreshold: 5
-  clientSyncTransformInterval: 0.05
-  clientSendInputsInterval: 0.05
-  serverSyncTransformInterval: 0.05
 --- !u!114 &114423900364055418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,7 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a250dc50d53944b80c6628ab2509d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainModel: {fileID: 114424167947571634}
+  mainTpsModel: {fileID: 114424167947571634}
   fpsModelPrefab: {fileID: 0}
   fpsModelPositionOffsets: {x: 0, y: 0, z: 0}
   fpsModelRotationOffsets: {x: 0, y: 0, z: 0}
@@ -1011,9 +1023,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 2
-  repathRate: 0.1
-  canSearch: 1
+  version: 4
+  autoRepath:
+    mode: 1
+    interval: 0.1
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
   canMove: 1
   speed: 3
   orientation: 0
@@ -1022,18 +1038,8 @@ MonoBehaviour:
   interpolatePathSwitches: 1
   switchPathInterpolationSpeed: 5
   targetCompatibility: {fileID: 0}
---- !u!114 &7716701684729141230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777251013356746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16e90d66c02169f4e9d03f0cb903566d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  repathRateCompatibility: 0.1
+  canSearchCompability: 1
 --- !u!82 &3716761511725307163
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1153,12 +1159,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942677502544580}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4557870965531137659
 GameObject:
@@ -1183,10 +1190,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4557870965531137659}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4926639783571920}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
