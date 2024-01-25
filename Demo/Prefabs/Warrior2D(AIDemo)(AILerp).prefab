@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab0561f743b29941b9e3fed07578b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 0
+  _id: 4
   visibleMaterials: []
   invisibleMaterials: []
   fpsMaterials: []
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   orientation: 0
   enableRotation: 0
   rotationSpeed: 10
-  interpolatePathSwitches: 1
+  interpolatePathSwitches: 0
   switchPathInterpolationSpeed: 5
   targetCompatibility: {fileID: 0}
   repathRateCompatibility: 0.1
