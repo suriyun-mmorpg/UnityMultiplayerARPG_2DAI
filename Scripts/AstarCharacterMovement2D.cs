@@ -72,7 +72,9 @@ namespace MultiplayerARPG
             {
                 // Set destination to AI Path
                 CacheAIPath.isStopped = false;
-                CacheAIPath.destination = NavPaths.Peek();
+                Vector3 destination = NavPaths.Peek();
+                if (Vector3.Distance(CacheAIPath.destination, destination) > Mathf.Epsilon)
+                    CacheAIPath.destination = NavPaths.Peek();
             }
             else
             {

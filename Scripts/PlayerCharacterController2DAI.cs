@@ -3,41 +3,42 @@ using Pathfinding;
 
 namespace MultiplayerARPG
 {
-	public class PlayerCharacterController2DAI : PlayerCharacterController
-	{
-        AstarCharacterMovement2D movement;
-        GameObject groundSeekerGameObject;
-        Seeker groundSeeker;
-        GameObject entitySeekerGameObject;
-        Seeker entitySeeker;
-        Vector3 measuringPositionOffsets;
-        Vector3 expectTargetPosition;
-        float expectTargetDistance;
+    public class PlayerCharacterController2DAI : PlayerCharacterController
+    {
+        AstarCharacterMovement2D _movement;
+        GameObject _groundSeekerGameObject;
+        Seeker _groundSeeker;
+        GameObject _entitySeekerGameObject;
+        Seeker _entitySeeker;
+        Vector3 _measuringPositionOffsets;
+        Vector3 _expectTargetPosition;
+        float _expectTargetDistance;
+        int? _prevNodeIdx;
 
         protected override void Awake()
         {
             base.Awake();
             // Ground seeker
-            groundSeekerGameObject = new GameObject("_ControllerGroundSeeker");
-            groundSeeker = groundSeekerGameObject.AddComponent<Seeker>();
-            groundSeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
-            groundSeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
-            groundSeeker.pathCallback += OnGroundPathComplete;
+            _groundSeekerGameObject = new GameObject("_ControllerGroundSeeker");
+            _groundSeeker = _groundSeekerGameObject.AddComponent<Seeker>();
+            _groundSeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
+            _groundSeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
+            _groundSeeker.pathCallback += OnGroundPathComplete;
             // Entity seeker
-            entitySeekerGameObject = new GameObject("_ControllerEntitySeeker");
-            entitySeeker = entitySeekerGameObject.AddComponent<Seeker>();
-            entitySeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
-            entitySeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
-            entitySeeker.pathCallback += OnEntityPathComplete;
+            _entitySeekerGameObject = new GameObject("_ControllerEntitySeeker");
+            _entitySeeker = _entitySeekerGameObject.AddComponent<Seeker>();
+            _entitySeeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
+            _entitySeeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
+            _entitySeeker.pathCallback += OnEntityPathComplete;
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            groundSeeker.pathCallback -= OnGroundPathComplete;
-            Destroy(groundSeekerGameObject);
-            entitySeeker.pathCallback -= OnEntityPathComplete;
-            Destroy(entitySeekerGameObject);
+            _groundSeeker.pathCallback -= OnGroundPathComplete;
+            Destroy(_groundSeekerGameObject);
+            _entitySeeker.pathCallback -= OnEntityPathComplete;
+            Destroy(_entitySeekerGameObject);
         }
 
         public override void UpdatePointClickInput()
@@ -49,9 +50,14 @@ namespace MultiplayerARPG
 
         protected void OnGroundPathComplete(Path _p)
         {
-            Vector3 nodePosition = (Vector3)_p.path[_p.path.Count - 1].position;
+            GraphNode node = _p.path[_p.path.Count - 1];
+            Vector3 nodePosition = (Vector3)node.position;
             _destination = nodePosition;
-            PlayingCharacterEntity.PointClickMovement(nodePosition);
+            if (!_prevNodeIdx.HasValue || _prevNodeIdx.Value != node.NodeIndex)
+            {
+                _prevNodeIdx = node.NodeIndex;
+                PlayingCharacterEntity.PointClickMovement(nodePosition);
+            }
         }
 
         protected void OnEntityPathComplete(Path _p)
@@ -59,11 +65,16 @@ namespace MultiplayerARPG
             Vector3 nodePosition;
             for (int i = 0; i < _p.path.Count; ++i)
             {
-                nodePosition = (Vector3)_p.path[i].position;
-                if (Vector3.Distance(nodePosition + measuringPositionOffsets, expectTargetPosition) <= expectTargetDistance)
+                GraphNode node = _p.path[i];
+                nodePosition = (Vector3)node.position;
+                if (Vector3.Distance(nodePosition + _measuringPositionOffsets, _expectTargetPosition) <= _expectTargetDistance)
                 {
                     _destination = null;
-                    PlayingCharacterEntity.PointClickMovement(nodePosition);
+                    if (!_prevNodeIdx.HasValue || _prevNodeIdx.Value != node.NodeIndex)
+                    {
+                        _prevNodeIdx = node.NodeIndex;
+                        PlayingCharacterEntity.PointClickMovement(nodePosition);
+                    }
                     break;
                 }
             }
@@ -72,19 +83,19 @@ namespace MultiplayerARPG
         protected override void OnPointClickOnGround(Vector3 targetPosition)
         {
             if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE)
-                groundSeeker.StartPath(MovementTransform.position, targetPosition);
+                _groundSeeker.StartPath(MovementTransform.position, targetPosition);
         }
 
         protected override void Setup(BasePlayerCharacterEntity characterEntity)
         {
             base.Setup(characterEntity);
-            movement = characterEntity.GetComponent<AstarCharacterMovement2D>();
+            _movement = characterEntity.GetComponent<AstarCharacterMovement2D>();
         }
 
         protected override void Desetup(BasePlayerCharacterEntity characterEntity)
         {
             base.Desetup(characterEntity);
-            movement = null;
+            _movement = null;
         }
 
         protected override void UpdateTargetEntityPosition(Vector3 measuringPosition, Vector3 targetPosition, float distance)
@@ -95,17 +106,17 @@ namespace MultiplayerARPG
             if (Vector3.Distance(MovementTransform.position, targetPosition) > MIN_START_MOVE_DISTANCE &&
                 Vector3.Distance(_previousPointClickPosition, targetPosition) > MIN_START_MOVE_DISTANCE)
             {
-                measuringPositionOffsets = measuringPosition - MovementTransform.position;
-                expectTargetPosition = targetPosition;
-                expectTargetDistance = distance;
-                entitySeeker.StartPath(MovementTransform.position, targetPosition);
+                _measuringPositionOffsets = measuringPosition - MovementTransform.position;
+                _expectTargetPosition = targetPosition;
+                _expectTargetDistance = distance;
+                _entitySeeker.StartPath(MovementTransform.position, targetPosition);
                 _previousPointClickPosition = targetPosition;
             }
         }
 
         protected override bool OverlappedEntity(ITargetableEntity entity, Vector3 sourcePosition, Vector3 targetPosition, float distance)
         {
-            return base.OverlappedEntity(entity, sourcePosition, targetPosition, distance);
+            return base.OverlappedEntity(entity, sourcePosition, targetPosition, distance) && (PlayingCharacterEntity.Movement as AstarCharacterMovement2D).reachedEndOfPath;
         }
     }
 }
