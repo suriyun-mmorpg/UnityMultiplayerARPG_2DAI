@@ -106,7 +106,13 @@ namespace MultiplayerARPG
         {
             if (CacheAIPath.velocity.sqrMagnitude > 0f)
                 return;
-            base.SetLookRotation(rotation);
+            if (!Entity.CanMove() || !Entity.CanTurn())
+                return;
+            if (CanPredictMovement())
+            {
+                // Always apply movement to owner client (it's client prediction for server auth movement)
+                Direction2D = (Vector2)(rotation * Vector3.forward);
+            }
         }
 
         protected override void OnTeleport(Vector2 position, bool stillMoveAfterTeleport)
