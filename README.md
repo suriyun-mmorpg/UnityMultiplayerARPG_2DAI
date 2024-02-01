@@ -6,15 +6,8 @@ Their package files will not included in this repository, visit their site to do
 
 ## Setup Player Character Entity / Monster Character Entity
 
-- Attach `A Star Character Movement 2D` to your character entity
-- Attach `AI Lerp` or `AI Path` component
-- Don't enable rotation for `AI Lerp` or `AI Path`
-
-![](./DocsMaterials/1.png)
-
-- If you use `AI Path`, set `Orientation` to `YAxisForward (for 2D games)` set `Radius` and `Height` fit to your character
-
-![](./DocsMaterials/2.png)
+- Remove other entity movement components
+- Attach `Astar Character Movement 2D` to your character entity
 
 ## Setup map scene
 
@@ -38,16 +31,3 @@ Their package files will not included in this repository, visit their site to do
 
 - Set `Collider type` to `Point`
 - Set `Obstacle Layer Mask` by select layers that you want to make it as obstacles
-
-## Setup character to move in grid as 4 directions(UP/DOWN/LEFT/RIGHT)
-
-- Use `AI Lerp` for characters
-- Set `Pathfinder` → `Connections` to `Four`
-
-![](./DocsMaterials/8.png)
-
-## About AI Lerp and AI Path
-
-- [AI Lerp](https://arongranberg.com/astar/docs/ailerp.html)
-- [AI Path](https://arongranberg.com/astar/docs/aipath.html)
-
