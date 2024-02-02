@@ -95,5 +95,16 @@ namespace MultiplayerARPG
             }
             CallNetFunction(NetFuncSetReachedEndOfPath, 0, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
         }
+
+        public override void SetLookRotation(Quaternion rotation)
+        {
+            if (!Entity.CanMove() || !Entity.CanTurn())
+                return;
+            if (CanPredictMovement())
+            {
+                // Always apply movement to owner client (it's client prediction for server auth movement)
+                Direction2D = (Vector2)(rotation * Vector3.forward);
+            }
+        }
     }
 }
