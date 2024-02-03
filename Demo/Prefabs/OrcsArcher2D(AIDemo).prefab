@@ -338,7 +338,6 @@ GameObject:
   - component: {fileID: 114877638974942912}
   - component: {fileID: 114383154828356954}
   - component: {fileID: 114423900364055418}
-  - component: {fileID: 114526811231809040}
   - component: {fileID: 3716761511725307163}
   m_Layer: 0
   m_Name: OrcsArcher2D(AIDemo)
@@ -1011,35 +1010,6 @@ MonoBehaviour:
   fpsModelPositionOffsets: {x: 0, y: 0, z: 0}
   fpsModelRotationOffsets: {x: 0, y: 0, z: 0}
   vehicleModels: []
---- !u!114 &114526811231809040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777251013356746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
-  autoRepath:
-    mode: 1
-    interval: 0.1
-    sensitivity: 10
-    maximumInterval: 2
-    visualizeSensitivity: 0
-  canMove: 1
-  speed: 3
-  orientation: 0
-  enableRotation: 0
-  rotationSpeed: 10
-  interpolatePathSwitches: 1
-  switchPathInterpolationSpeed: 5
-  targetCompatibility: {fileID: 0}
-  repathRateCompatibility: 0.1
-  canSearchCompability: 1
 --- !u!82 &3716761511725307163
 AudioSource:
   m_ObjectHideFlags: 0

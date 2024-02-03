@@ -516,7 +516,7 @@ MonoBehaviour:
   dataChannel: 0
   sendOptions: 0
   sendInterval: 0.1
-  entityTitle: AIPath
+  entityTitle: Warrior
   entityTitles: []
   syncTitle:
     behaviour: {fileID: 0}
