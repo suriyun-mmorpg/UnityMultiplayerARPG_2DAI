@@ -8,21 +8,14 @@ namespace MultiplayerARPG
     {
         public Seeker Seeker { get; private set; }
 
-        protected bool _localReachedEndOfPath = true;
-        protected bool _remoteReachedEndOfPath = true;
+        protected SyncFieldBool syncReachedEndOfPath = new SyncFieldBool()
+        {
+            syncMode = LiteNetLibSyncField.SyncMode.ClientMulticast,
+        };
         protected float _nodeSize;
         protected Vector3? _endOfPathPosition;
 
-        public bool reachedEndOfPath
-        {
-            get
-            {
-                if ((movementSecure == MovementSecure.ServerAuthoritative && IsServer) ||
-                    (movementSecure == MovementSecure.NotSecure && IsOwnerClient))
-                    return _localReachedEndOfPath;
-                return _remoteReachedEndOfPath;
-            }
-        }
+        public bool ReachedEndOfPath => syncReachedEndOfPath.Value;
 
         public override void EntityAwake()
         {
@@ -73,27 +66,17 @@ namespace MultiplayerARPG
             Seeker.StartPath(Entity.MovementTransform.position, position);
         }
 
-        public override void OnSetup()
-        {
-            base.OnSetup();
-            RegisterNetFunction<bool>(NetFuncSetReachedEndOfPath);
-        }
-
-        protected void NetFuncSetReachedEndOfPath(bool reachedEndOfPath)
-        {
-            _remoteReachedEndOfPath = reachedEndOfPath;
-        }
-
         public override void EntityUpdate()
         {
             base.EntityUpdate();
             // Update reached end of path state
-            _localReachedEndOfPath = true;
-            if (_endOfPathPosition.HasValue && HasNavPaths && Vector3.Distance(_endOfPathPosition.Value, Entity.MovementTransform.position) >= _nodeSize)
+            if (IsOwnedByServer || IsOwnerClient)
             {
-                _localReachedEndOfPath = false;
+                if (_endOfPathPosition.HasValue && HasNavPaths && Vector3.Distance(_endOfPathPosition.Value, Entity.MovementTransform.position) >= _nodeSize)
+                    syncReachedEndOfPath.Value = false;
+                else
+                    syncReachedEndOfPath.Value = true;
             }
-            CallNetFunction(NetFuncSetReachedEndOfPath, 0, LiteNetLib.DeliveryMethod.Sequenced, FunctionReceivers.All, reachedEndOfPath);
         }
 
         public override void SetLookRotation(Quaternion rotation)
