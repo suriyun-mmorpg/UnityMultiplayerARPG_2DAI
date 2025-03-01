@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +134,6 @@ GameObject:
   - component: {fileID: 8174917}
   - component: {fileID: 8174915}
   - component: {fileID: 8174913}
-  - component: {fileID: 8174914}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -168,16 +166,18 @@ MonoBehaviour:
   packetVersion: 1
   pingDuration: 1
   doNotEnterGameOnConnect: 0
+  doNotReadyOnSceneLoaded: 0
   doNotDestroyOnSceneChanges: 0
+  loadOfflineSceneWhenClientStopped: 1
   auctionHouseMessageTypes:
     createAuctionRequestType: 1300
     bidRequestType: 1301
     buyoutRequestType: 1302
     cancelAuctionRequestType: 1304
-    getClientConfigRequestType: 1303
   auctionHouseServiceUrl: http://localhost:9800
   auctionHouseServiceUrlForClient: http://localhost:9800
   auctionHouseSecretKey: secret
+  dailyRewardingServiceUrlForClient: http://localhost:9803
   hitToSomeoneNotifyMessageId: 2001
   hitToSomeoneNotifyDataChannel: 0
   hitToSomeoneNotifyDeliveryMethod: 4
@@ -187,6 +187,8 @@ MonoBehaviour:
   killNotifyMessageId: 2000
   killNotifyDataChannel: 0
   killNotifyDeliveryMethod: 1
+  getOnlineCharacterDataRequestType: 1500
+  getOnlineCharactersRequestType: 1501
   useUnityAutoPhysicSyncTransform: 1
   onSpawnEntitiesStart:
     m_PersistentCalls:
@@ -235,8 +237,7 @@ MonoBehaviour:
         m_CallState: 2
   guildWarMessageTypes:
     statusMsgType: 1001
-    getClientConfigRequestType: 1400
-  recoverMonstersWhenRoundEnd: 1
+  recoverMonstersWhenGuildWarRoundEnd: 1
   guildWarMailSenderId: GUILDWAR
   guildWarMailSenderName: Guild War Manager
   guildWarServiceUrl: http://localhost:9801
@@ -248,23 +249,6 @@ MonoBehaviour:
   selectedCharacterStorageItems: []
   enableGmCommands: 0
   writeAddonLog: 0
---- !u!114 &8174914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8174912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5a2f797d92f5524593c6d991dec562f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultVisibleRange: 80
-  axisMode: 1
-  includeInactiveComponents: 1
-  cellSize: 100
-  updateInterval: 1
 --- !u!114 &8174915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +269,25 @@ MonoBehaviour:
     sceneName: 
   onlineScene:
     sceneAsset: {fileID: 0}
+    sceneName: 
+  addressablePlayerPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableSpawnablePrefabs: []
+  addressableOfflineScene:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    sceneName: 
+  addressableOnlineScene:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
     sceneName: 
   onInitialize:
     m_PersistentCalls:
@@ -334,12 +337,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onSceneFileSizeRetrieving:
+    m_PersistentCalls:
+      m_Calls: []
+  onSceneFileSizeRetrieved:
+    m_PersistentCalls:
+      m_Calls: []
+  onSceneDepsDownloading:
+    m_PersistentCalls:
+      m_Calls: []
+  onSceneDepsFileDownloading:
+    m_PersistentCalls:
+      m_Calls: []
+  onSceneDepsDownloaded:
+    m_PersistentCalls:
+      m_Calls: []
+  onLoadAdditiveSceneStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onLoadAdditiveSceneProgress:
+    m_PersistentCalls:
+      m_Calls: []
+  onLoadAdditiveSceneFinish:
+    m_PersistentCalls:
+      m_Calls: []
   onObjectSpawn:
     m_PersistentCalls:
       m_Calls: []
   onObjectDestroy:
     m_PersistentCalls:
       m_Calls: []
+  disablePooling: 0
 --- !u!4 &8174917
 Transform:
   m_ObjectHideFlags: 0
@@ -433,6 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694651799}
   - component: {fileID: 694651798}
+  - component: {fileID: 694651800}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -517,6 +546,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &694651800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694651797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &846140300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -756,10 +808,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca66ed5b09dc41447ad7cf901faa5e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  morphings: []
   dimensionType: 1
   messageManager: {fileID: 0}
   saveSystem: {fileID: 0}
   gameplayRule: {fileID: 11400000, guid: 3bfe680a81b27ce4ba9642ddff7baa17, type: 2}
+  inventoryManager: {fileID: 0}
   dayNightTimeUpdater: {fileID: 0}
   gmCommands: {fileID: 0}
   equipmentModelBonesSetupManager: {fileID: 0}
@@ -780,6 +834,68 @@ MonoBehaviour:
   uiSceneGameplayConsolePrefab: {fileID: 0}
   defaultControllerPrefab: {fileID: 114618904563953218, guid: b75499d99bfb48342b9c100e61058694,
     type: 3}
+  addressableItemDropEntityPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableExpDropEntityPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableGoldDropEntityPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableCurrencyDropEntityPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableWarpPortalEntityPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressablePlayerCorpsePrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableMonsterCorpsePrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    hashAssetId: 0
+  addressableUiSceneGameplayPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  addressableUiSceneGameplayMobilePrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  addressableUiSceneGameplayConsolePrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  addressableDefaultControllerPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   serverCharacterPrefab: {fileID: 114801908678275750, guid: 421d789af0533a74fb6efc3521d9f8b7,
     type: 3}
   owningCharacterObjects:
@@ -804,12 +920,18 @@ MonoBehaviour:
   npcUI: {fileID: 114537631033164756, guid: b75f7de46d27c284d913d9b2984ff84d, type: 3}
   npcQuestIndicator: {fileID: 114612624042908474, guid: 4acaa26309bf3094094eec89f99e2972,
     type: 3}
-  levelUpEffect: {fileID: 114843870614705530, guid: 6f6e255b4877f874c985ed9fb46293a1,
-    type: 3}
+  levelUpEffect: {fileID: 0}
+  levelUpEffects:
+  - {fileID: 114843870614705530, guid: 6f6e255b4877f874c985ed9fb46293a1, type: 3}
   stunEffects: []
   muteEffects: []
   freezeEffects: []
+  addressableLevelUpEffects: []
+  addressableStunEffects: []
+  addressableMuteEffects: []
+  addressableFreezeEffects: []
   expTree: 140000001e00000031000000490000006500000086000000aa000000d1000000fa000000270100005601000087010000bb010000f10100002902000064020000a0020000de0200001e0300005f030000a3030000e80300002f04000077040000c10400000d0500005a050000a9050000f90500004a0600009d060000f1060000470700009e070000f707000050080000ab0800000809000065090000c4090000240a0000850a0000e80a00004b0b0000b00b0000160c00007d0c0000e50c00004e0d0000b90d0000240e0000910e0000fe0e00006d0f0000dd0f00004d100000bf10000032110000a61100001b12000090120000071300007f130000f813000071140000ec14000068150000e415000062160000e01600005f170000e017000061180000e318000066190000ea1900006e1a0000f41a00007a1b0000021c00008a1c0000131d00009d1d0000281e0000b31e0000401f0000cd1f00005b200000ea200000792100000a2200009b2200002d230000c023000054240000e82400007e25000014260000aa26000042270000
+  expTable: {fileID: 0}
   gameDatabase: {fileID: 11400000, guid: 5f287375fe9cab8459e500261f34c64c, type: 2}
   npcDatabase: {fileID: 0}
   warpPortalDatabase: {fileID: 0}
@@ -819,6 +941,7 @@ MonoBehaviour:
   defaultDamageElement: {fileID: 0}
   defaultDamageHitEffects:
   - {fileID: 114984786077298016, guid: fa67f0b7f994d9548821d15fbf67531d, type: 3}
+  addressableDefaultDamageHitEffects: []
   playerTag:
     tag: PlayerTag
   monsterTag:
@@ -888,6 +1011,7 @@ MonoBehaviour:
   mountDelay: 1
   useItemDelay: 0.25
   clearSkillCooldownOnDead: 1
+  goldStoreMode: 0
   dismantleFilter:
     includeJunk: 0
     includeArmor: 1
@@ -930,25 +1054,49 @@ MonoBehaviour:
     type: 2}
   startGold: 0
   startItems: []
-  homeScene:
-    sceneAsset: {fileID: 102900000, guid: 91fd2dda25392fb46b1aaf86a01e8f2c, type: 3}
-    sceneName: 01Home_2D
-  homeMobileScene:
-    sceneAsset: {fileID: 0}
-    sceneName: 
-  homeConsoleScene:
-    sceneAsset: {fileID: 0}
-    sceneName: 
+  testingNewCharacterSetting: {fileID: 0}
   updateAnimationAtServer: 1
   minCharacterNameLength: 2
   maxCharacterNameLength: 16
   maxCharacterSaves: 5
   serverTargetFrameRate: 30
   testInEditorMode: 0
+  networkManagerForOfflineTesting:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   exportSocialSystemSettingAsJson: 0
   exportMinimalItemsAsJson: 0
   exportCharacterCreationDataAsJson: 0
   cashShopDatabase: {fileID: 11400000, guid: 677c37c598e6c1045b66de68f1f546f6, type: 2}
+  homeScene:
+    sceneAsset: {fileID: 102900000, guid: 91fd2dda25392fb46b1aaf86a01e8f2c, type: 3}
+    sceneName: 01Home_2D
+  addressableHomeScene:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    sceneName: 
+  homeMobileScene:
+    sceneAsset: {fileID: 0}
+    sceneName: 
+  addressableHomeMobileScene:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    sceneName: 
+  homeConsoleScene:
+    sceneAsset: {fileID: 0}
+    sceneName: 
+  addressableHomeConsoleScene:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+    sceneName: 
 --- !u!4 &1379718503
 Transform:
   m_ObjectHideFlags: 0
