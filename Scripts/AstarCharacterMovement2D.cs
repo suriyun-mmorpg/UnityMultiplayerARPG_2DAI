@@ -57,7 +57,7 @@ namespace MultiplayerARPG
         {
             if (moveDirection.sqrMagnitude <= 0.25f)
                 return;
-            PointClickMovement(CacheTransform.position + moveDirection);
+            PointClickMovement(EntityTransform.position + moveDirection);
         }
 
         public override void PointClickMovement(Vector3 position)
