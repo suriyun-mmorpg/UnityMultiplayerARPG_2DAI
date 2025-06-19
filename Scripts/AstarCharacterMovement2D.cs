@@ -10,7 +10,7 @@ namespace MultiplayerARPG
 
         protected SyncFieldBool syncReachedEndOfPath = new SyncFieldBool()
         {
-            syncMode = LiteNetLibSyncField.SyncMode.ClientMulticast,
+            syncMode = LiteNetLibSyncFieldMode.ClientMulticast,
         };
         protected float _nodeSize;
         protected Vector3? _endOfPathPosition;
