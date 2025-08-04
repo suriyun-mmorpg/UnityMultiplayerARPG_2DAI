@@ -78,16 +78,5 @@ namespace MultiplayerARPG
                     syncReachedEndOfPath.Value = true;
             }
         }
-
-        public override void SetLookRotation(Quaternion rotation, bool immediately)
-        {
-            if (!Entity.CanMove() || !Entity.CanTurn())
-                return;
-            if (CanPredictMovement())
-            {
-                // Always apply movement to owner client (it's client prediction for server auth movement)
-                Direction2D = (Vector2)(rotation * Vector3.forward);
-            }
-        }
     }
 }
