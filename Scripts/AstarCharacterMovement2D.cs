@@ -17,18 +17,18 @@ namespace MultiplayerARPG
 
         public bool ReachedEndOfPath => syncReachedEndOfPath.Value;
 
-        public override void EntityAwake()
+        protected override void Awake()
         {
-            base.EntityAwake();
+            base.Awake();
             Seeker = GetComponent<Seeker>();
             Seeker.startEndModifier.exactStartPoint = StartEndModifier.Exactness.SnapToNode;
             Seeker.startEndModifier.exactEndPoint = StartEndModifier.Exactness.SnapToNode;
             Seeker.pathCallback += OnPathComplete;
         }
 
-        public override void EntityOnDestroy()
+        protected override void OnDestroy()
         {
-            base.EntityOnDestroy();
+            base.OnDestroy();
             Seeker.pathCallback -= OnPathComplete;
         }
 
@@ -66,9 +66,9 @@ namespace MultiplayerARPG
             Seeker.StartPath(Entity.MovementTransform.position, position);
         }
 
-        public override void EntityUpdate()
+        public override void ManagedUpdate()
         {
-            base.EntityUpdate();
+            base.ManagedUpdate();
             // Update reached end of path state
             if (IsOwnedByServer || IsOwnerClient)
             {
