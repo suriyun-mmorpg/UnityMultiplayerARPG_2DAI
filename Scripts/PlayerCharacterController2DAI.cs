@@ -113,10 +113,5 @@ namespace MultiplayerARPG
                 _previousPointClickPosition = targetPosition;
             }
         }
-
-        protected override bool OverlappedEntity(ITargetableEntity entity, Vector3 sourcePosition, Vector3 targetPosition, float distance)
-        {
-            return base.OverlappedEntity(entity, sourcePosition, targetPosition, distance) && (PlayingCharacterEntity.Movement as AstarCharacterMovement2D).ReachedEndOfPath;
-        }
     }
 }
